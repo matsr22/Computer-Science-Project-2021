@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Physics_Engine", "Physics_Engine\Physics_Engine.csproj", "{BF25B2BC-DF9E-4D1C-85E1-90B4CA2821CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF25B2BC-DF9E-4D1C-85E1-90B4CA2821CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF25B2BC-DF9E-4D1C-85E1-90B4CA2821CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF25B2BC-DF9E-4D1C-85E1-90B4CA2821CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF25B2BC-DF9E-4D1C-85E1-90B4CA2821CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A24DDA26-17A5-4A19-BBBF-C4DDE47ABA46}
+	EndGlobalSection
+EndGlobal
