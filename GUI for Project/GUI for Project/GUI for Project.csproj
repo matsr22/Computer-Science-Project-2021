@@ -46,14 +46,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="ContentsPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ContentsPage.Designer.cs">
+      <DependentUpon>ContentsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentPage.Designer.cs">
+      <DependentUpon>StudentPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeacherPage.Designer.cs">
+      <DependentUpon>TeacherPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ContentsPage.resx">
+      <DependentUpon>ContentsPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -63,6 +78,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StudentPage.resx">
+      <DependentUpon>StudentPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeacherPage.resx">
+      <DependentUpon>TeacherPage.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
