@@ -227,14 +227,32 @@ namespace Physics_Engine
             return "Series";
         }
     }
+    public class Circuit
+    {
+        char Type;
+        double emfValue;
+        public Circuit(char typeOfPsource, double valueofPsource, double IntRes)
+        {
+            SeriesComponent Main = new SeriesComponent("Main");
+            Main.AddComponent(Globals.CreateSimpleComponent(IntRes));
+            Type = typeOfPsource;
+            emfValue = valueofPsource;
+            if (Type == 'v')
+            {
+                Main.assignAFromV(emfValue);
+            }
+            if (Type == 'a')
+            {
+                Main.assignVFromA(emfValue);
+            }
+        }
+    }
     public class TestingClass
     {
         static void Main(string[] args)
         {
             
-            SeriesComponent Main = new SeriesComponent("R"+Globals.ResistorNum);
-            Globals.ResistorNum++;
-            Main.ComponentSearch
+
         }
 
     }

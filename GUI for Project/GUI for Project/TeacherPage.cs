@@ -15,6 +15,7 @@ namespace GUI_for_Project
         public TeacherPage()
         {
             InitializeComponent();
+            WindowState = FormWindowState.Maximized;
         }
 
         private void Exit_Click(object sender, EventArgs e)

@@ -28,31 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.GoToStudent = new System.Windows.Forms.Button();
-            this.GoToTeacher = new System.Windows.Forms.Button();
             this.Settings = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
+            this.GoToTeacher = new System.Windows.Forms.Button();
+            this.GoToStudent = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // GoToStudent
-            // 
-            this.GoToStudent.Location = new System.Drawing.Point(473, 168);
-            this.GoToStudent.Name = "GoToStudent";
-            this.GoToStudent.Size = new System.Drawing.Size(209, 92);
-            this.GoToStudent.TabIndex = 0;
-            this.GoToStudent.Text = "Student";
-            this.GoToStudent.UseVisualStyleBackColor = true;
-            this.GoToStudent.Click += new System.EventHandler(this.GoToStudent_Click);
-            // 
-            // GoToTeacher
-            // 
-            this.GoToTeacher.Location = new System.Drawing.Point(170, 168);
-            this.GoToTeacher.Name = "GoToTeacher";
-            this.GoToTeacher.Size = new System.Drawing.Size(200, 90);
-            this.GoToTeacher.TabIndex = 1;
-            this.GoToTeacher.Text = "Teacher";
-            this.GoToTeacher.UseVisualStyleBackColor = true;
-            this.GoToTeacher.Click += new System.EventHandler(this.GoToTeacher_Click);
             // 
             // Settings
             // 
@@ -74,15 +54,37 @@
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
+            // GoToTeacher
+            // 
+            this.GoToTeacher.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GoToTeacher.Location = new System.Drawing.Point(143, 124);
+            this.GoToTeacher.Name = "GoToTeacher";
+            this.GoToTeacher.Size = new System.Drawing.Size(317, 212);
+            this.GoToTeacher.TabIndex = 1;
+            this.GoToTeacher.Text = "Teacher";
+            this.GoToTeacher.UseVisualStyleBackColor = true;
+            this.GoToTeacher.Click += new System.EventHandler(this.GoToTeacher_Click);
+            // 
+            // GoToStudent
+            // 
+            this.GoToStudent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GoToStudent.Location = new System.Drawing.Point(553, 124);
+            this.GoToStudent.Name = "GoToStudent";
+            this.GoToStudent.Size = new System.Drawing.Size(345, 212);
+            this.GoToStudent.TabIndex = 0;
+            this.GoToStudent.Text = "Student";
+            this.GoToStudent.UseVisualStyleBackColor = true;
+            this.GoToStudent.Click += new System.EventHandler(this.GoToStudent_Click);
+            // 
             // ContentsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1010, 386);
+            this.Controls.Add(this.GoToStudent);
+            this.Controls.Add(this.GoToTeacher);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.Settings);
-            this.Controls.Add(this.GoToTeacher);
-            this.Controls.Add(this.GoToStudent);
             this.Name = "ContentsPage";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -90,11 +92,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button GoToStudent;
-        private System.Windows.Forms.Button GoToTeacher;
         private System.Windows.Forms.Button Settings;
         private System.Windows.Forms.Button Exit;
+        private System.Windows.Forms.Button GoToTeacher;
+        private System.Windows.Forms.Button GoToStudent;
     }
 }
 

@@ -15,6 +15,7 @@ namespace GUI_for_Project
         public StudentPage()
         {
             InitializeComponent();
+            WindowState = FormWindowState.Maximized;
         }
 
         private void Return(object sender, EventArgs e)
@@ -42,7 +43,10 @@ namespace GUI_for_Project
 
         private void CustomBuilder_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            Form CircuitBuilder = new Form1();
+            CircuitBuilder.ShowDialog();
+            this.Close();
         }
     }
 }

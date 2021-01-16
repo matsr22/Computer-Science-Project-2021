@@ -15,6 +15,7 @@ namespace GUI_for_Project
         public ContentsPage()
         {
             InitializeComponent();
+            WindowState = FormWindowState.Maximized;
         }
 
         private void Settings_Click(object sender, EventArgs e)
@@ -42,5 +43,6 @@ namespace GUI_for_Project
         {
             Environment.Exit(0);
         }
+
     }
 }

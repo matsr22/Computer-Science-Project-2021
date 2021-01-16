@@ -2,9 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\GUI for Project",
+    "\\GUI for Project\\GUI for Project",
+    "\\GUI for Project\\GUI for Project\\Properties",
     "\\Physics_Engine",
     "\\Physics_Engine\\Physics_Engine"
   ],
-  "SelectedNode": "\\GUI for Project\\GUI for Project.sln",
+  "SelectedNode": "\\GUI for Project\\GUI for Project\\TeacherPage.cs",
   "PreviewInSolutionExplorer": false
 }

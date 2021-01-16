@@ -52,6 +52,12 @@
     <Compile Include="ContentsPage.Designer.cs">
       <DependentUpon>ContentsPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Circuit View.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Circuit View.Designer.cs">
+      <DependentUpon>Circuit View.cs</DependentUpon>
+    </Compile>
     <Compile Include="StudentPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Circuit View.resx">
+      <DependentUpon>Circuit View.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ContentsPage.resx">
       <DependentUpon>ContentsPage.cs</DependentUpon>
     </EmbeddedResource>
