@@ -14,8 +14,8 @@ namespace GUI_for_Project
     {
         private int TopOffset = 0;
         private int RightOffset = 200;
+        private string ImageDefaultPath = @"C:\Users\matth\source\repos\matsr22\Computer-Science-Project-2021\GUI for Project\GUI for Project\Images\";
         private DataGridView ComponentGrid;
-        private List<ComponentRow> ComponentGridElements;
 
         public Form1()
         {
@@ -25,64 +25,52 @@ namespace GUI_for_Project
         }
         public void CreatePanel()
         {
-            ComponentGrid = new DataGridView();
-            ComponentGrid.Parent = this;
-            ComponentGrid.Location = new Point(RightOffset, TopOffset);
-            ComponentGrid.Name = "Components";
-            ComponentGrid.TabIndex = 0;
-            ComponentGrid.ColumnHeadersVisible = false; // You could turn this back on if you wanted, but this hides the headers that would say, "Cell1, Cell2...."
-            ComponentGrid.RowHeadersVisible = false;
-            ComponentGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            ComponentGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
-            ComponentGrid.Size = new Size(ClientRectangle.Width - RightOffset, ClientRectangle.Height - TopOffset);
-            ComponentGrid.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom);
-            ComponentGrid.BackColor = Color.Aqua;
-            this.ResumeLayout(false);
-            ComponentGrid.Visible = true;
-            this.Controls.Add(ComponentGrid);
-            FillPanel();
-            TestingClass();
+            for (int x = 0;x< ComponentList.ColumnCount;x++)
+            {
+                for (int y = 0; y < ComponentList.RowCount; y++)
+                {
+                    AddPicture(ImageDefaultPath + "White.png", x, y);
+                }
+            }
+            for (int x = 0; x < ComponentList.RowCount; x++)
+            {
+
+                ModifyPicture(ImageDefaultPath + "Down.png", x, 0);
+                ModifyPicture(ImageDefaultPath + "Down.png", x, ComponentList.ColumnCount-1);
+            }
+            
+            for (int y = 0; y < ComponentList.ColumnCount; y++)
+            {
+                ModifyPicture(ImageDefaultPath+"Across.png", 0, y);
+                ModifyPicture(ImageDefaultPath + "Across.png", ComponentList.RowCount-1, y);
+            }
+            
+            ModifyPicture(ImageDefaultPath + "RightBottom.png", 0, 0);
+            ModifyPicture(ImageDefaultPath + "TopRight.png", ComponentList.RowCount-1 , 0);
+            ModifyPicture(ImageDefaultPath + "TopLeft.png", ComponentList.RowCount -1, ComponentList.ColumnCount-1 );
+            ModifyPicture(ImageDefaultPath + "LeftBottom.png", 0 , ComponentList.ColumnCount -1);
+            
+            
+        }
+        public void AddPicture(string path,int x,int y)
+        {
+
+            ComponentList.Controls.Add(new PictureBox() { Image = Image.FromFile(path), SizeMode = PictureBoxSizeMode.StretchImage, Margin = new Padding(0), Dock = DockStyle.Fill }, x,y);
+        }
+        public void ModifyPicture (string path, int x, int y)
+        {
+            PictureBox picture = (PictureBox)ComponentList.Controls[x + y * (ComponentList.RowCount )];
+            picture.Image = Image.FromFile(path);
+
         }
         public void TestingClass()
         {
-            ComponentGridElements[0].Cell1.Image = new Bitmap(@"C:\Users\matth\source\repos\matsr22\Computer-Science-Project-2021\GUI for Project\GUI for Project\Images\Across_1.jpg");
-            ComponentGridElements[0].Cell1.ClientSize = new Size(10, 10);
-            ComponentGridElements[0].Cell1.Dock = DockStyle.Fill;
-            ComponentGridElements[0].Cell1.Show();
-            ComponentGrid.Refresh();
-        }
-        public class ComponentRow
-        {
-            public PictureBox Cell1 = new PictureBox();
-            public PictureBox Cell2 = new PictureBox();
-            public PictureBox Cell3 = new PictureBox();
-            public PictureBox Cell4 = new PictureBox();
-            public PictureBox Cell5 = new PictureBox();
-            public PictureBox Cell6 = new PictureBox();
-            public PictureBox Cell7 = new PictureBox();
-            public PictureBox Cell8 = new PictureBox();
-            public PictureBox Cell9 = new PictureBox();
-            public PictureBox Cell10 = new PictureBox();
-            public PictureBox Cell11 = new PictureBox();
-            public PictureBox Cell12 = new PictureBox();
-            public PictureBox Cell13 = new PictureBox();
+
         }
         public void FillPanel()
         {
-            ComponentGridElements = new List<ComponentRow>();
-            for (int i = 0; i < 13; i++)
-            {
-                ComponentGridElements.Add(new ComponentRow());
-            }
-            ComponentGrid.DataSource = ComponentGridElements;
+            
         }
 
-
-        /*private void Form1_Resize(object sender, EventArgs e)
-        {
-            Control control = (Control)sender;
-            control.Size = new Size(ClientRectangle.Width - RightOffset, ClientRectangle.Height - TopOffset);
-        }
-        */
-    }
+}
 }
