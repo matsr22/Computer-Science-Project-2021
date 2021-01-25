@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Physics_Engine\Physics_Engine\Physics_Engine.cs">
+      <Link>Physics_Engine.cs</Link>
+    </Compile>
     <Compile Include="ContentsPage.cs">
       <SubType>Form</SubType>
     </Compile>
