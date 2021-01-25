@@ -102,16 +102,44 @@ namespace GUI_for_Project
 
             
         }
-        public void DrawSection(ResistiveComponent component,int StartingX,int StartingY)
+        public void DrawSection(GeneralComponent component,int StartingX,int StartingY)
         {
-             if (component.GetType().Name == "ResistiveComponent")
+             if (component.GetType() == 'b')
              {
                 ModifyPicture("Resistor.png",StartingX,StartingY,component.GetResistance().ToString()); // This code may have to be changed if I need to make the resistor into a 2x1 image rather than a 1x1
              }
-             else if (component.GetType().Name == "ParrallelComponent")
-            {
-                //foreach (ResistiveComponent element in ParraComponent)
-            }
+             else if (component.GetType() == 'p')
+             {
+                List<GeneralComponent> ListForDrawing = component.GetCopyOfSubList();// Gets a copy of the current circuit from the PhysicsEngine Module
+
+                // Starts From Current position and starts to draw a parrallel component
+                ModifyPicture("TopRightLeft.png", StartingX, StartingY,null);
+                // Recursivley calls the next draw function to draw the bottom line
+                DrawSection(ListForDrawing[0], StartingX + 1, StartingY);
+
+                //Starts going through the vertical list of components to be drawn in parrallel
+                for (int i = 1; i < ListForDrawing.Count; i++)
+                {
+                    //If the y Size of The Component that Has to be drawn previously is larger than 1, extra extentions are drawn 
+                    for (int x = 1; x < ListForDrawing[i-1].size[1]; x++)
+                    {
+
+                        StartingY++;//Moves the Y value up
+                        ModifyPicture("Down.png", StartingX, StartingY,null);//Draws a vertical Straight Line
+                    }
+                    StartingY++;//Itterates the Y one more
+                    if (i == ListForDrawing.Count - 1)// If this is the last component in the List, Draw a different joining wire
+                    {
+                        ModifyPicture("RightBottom.png", StartingX, StartingY,null);
+                    }
+                    else
+                    {
+                        ModifyPicture("TopRightBottom.png", StartingX, StartingY, null);//If not then Just branch for the next component
+                    }
+                    DrawSection(ListForDrawing[i], StartingX + 1, StartingY);
+                }
+
+             }
         }
         private void ImageResizer(object sender, EventArgs e) // Resizes the text under a component so it is consistant
         {
