@@ -10,13 +10,20 @@ namespace Physics_Engine
         public static int ResistorNum = 1; // Globals to give the components unique names
         public static int ParralellNum = 1;
         public static int SeriesNum = 1;
-        public static GeneralComponent CreateSimpleComponent(double resistance)
+        public static GeneralComponent CreateSimpleComponent(double resistance,string name ="")
         {
-
-            string componentName = "R" + PhysicsGlobals.ResistorNum.ToString(); // Creates the Name of the component, with globals to ensure it will be unique
+            string componentName;
+            if (name == "")
+            {
+                componentName = "R" + PhysicsGlobals.ResistorNum.ToString(); // Creates the Name of the component, with globals to ensure it will be unique
+                PhysicsGlobals.ResistorNum++;// Increments Global variable
+            }
+            else
+            {
+                componentName = name;
+            }
             GeneralComponent NewBasicComponent = new GeneralComponent(componentName);// Creates new instance of the most basic component 
             NewBasicComponent.AssignResistance(resistance);// Assigns the resistance the user has given
-            PhysicsGlobals.ResistorNum++;// Increments Global variable
             return NewBasicComponent;
         }
     }
@@ -26,13 +33,18 @@ namespace Physics_Engine
         char Type;
         double emfValue;
         public GeneralComponent Main;
-        public Circuit(char typeOfPsource, double valueofPsource, double IntRes)
+        public Circuit(char typeOfPsource, double valueofPsource, double IntRes,double ValOfFirstRes)
         {
             Main = new GeneralComponent("Main");
             Main.AssignType('s');
-            Main.AddComponent(PhysicsGlobals.CreateSimpleComponent(IntRes));
+            Main.AddComponent(PhysicsGlobals.CreateSimpleComponent(IntRes,"IntRes"));
+            Main.AddComponent(PhysicsGlobals.CreateSimpleComponent(ValOfFirstRes));
             Type = typeOfPsource;
             emfValue = valueofPsource;
+            RunVoltageCalcs();
+        }
+        public void RunVoltageCalcs()
+        {
             if (Type == 'v')
             {
                 Main.assignAFromV(emfValue);
@@ -42,13 +54,17 @@ namespace Physics_Engine
                 Main.assignVFromA(emfValue);
             }
         }
+        public double GetEmfValue()
+        {
+            return emfValue;
+        }
     }
     public class TestingClass
     {
-        static void Main(string[] args)
+        static void Testing(string[] args)
         {
 
-            Circuit circuit = new Circuit('v', 12.0, 1);
+            Circuit circuit = new Circuit('v', 12.0, 1,6);
             circuit.Main.CalculateResistance();
             circuit.Main.ComponentSearch("R1", "Insert", new string[] { "6.0", "s" });
             circuit.Main.assignAFromV(circuit.Main.GetVoltage());
@@ -73,6 +89,10 @@ namespace Physics_Engine
             name = Assignedname;
             Type = 'b';
         }
+        public string GetName()
+        {
+            return name;
+        }
         public List<GeneralComponent> GetCopyOfSubList()
         {
             return ComponentList;
@@ -85,7 +105,7 @@ namespace Physics_Engine
         {
             return voltage;
         }
-        public bool ComponentSearch(string NameOfComponent, string Action, string[] Values)
+        public bool ComponentSearch(string NameOfComponent, string Action,string[] Values)
         {
             if (NameOfComponent == name)
             {
@@ -102,7 +122,7 @@ namespace Physics_Engine
                             switch (Action)
                             {
                                 case "Insert":
-                                    InsertComponent(component, Convert.ToDouble(Values[0]), Convert.ToChar(Values[1]));
+                                    InsertComponent(component, Convert.ToDouble(Values[0]), Convert.ToChar(Values[1]));// Resistance, Mode(s/p)
                                     goto Done;
                                     
                             }
@@ -113,6 +133,24 @@ namespace Physics_Engine
                 return false;
             }
 
+        }
+        public GeneralComponent FindComponentFromName(string NameOfComponent)
+        {
+            if(NameOfComponent == name)
+            {
+                return this;
+            }
+            else
+            {
+                if(Type == 'p' || Type == 's')
+                {
+                    foreach (GeneralComponent element in ComponentList)
+                    {
+                       return element.FindComponentFromName(NameOfComponent);
+                    }
+                }
+            }
+            return null;
         }
         public void AssignType(char type)
         {
@@ -170,6 +208,9 @@ namespace Physics_Engine
                 double total = 0;
                 foreach (GeneralComponent element in ComponentList)
                 {
+                    element.CalculateResistance();
+                    size[0] = 0;
+                    size[1] = 0;
                     size[0] = Math.Max(size[0], element.size[0]);
                     size[1] += element.size[1];
                     total += element.GetResistance();
@@ -182,15 +223,15 @@ namespace Physics_Engine
                 foreach (GeneralComponent element in ComponentList)
                 {
                     // These two bits basicly say , ok whats my max height gonna be and ok how long am I gonna be
+                    element.CalculateResistance();
+                    size[0] = 0;
+                    size[1] = 0;
                     size[0] += element.size[0]; // This might cause issues later as I don't really understand what internal does 
                     size[1] = Math.Max(size[1], element.size[1]);
+                    size[0] += 2;
                     total += 1 / element.GetResistance();
                 }
                 resistance = 1 / total;
-            }
-            else
-            {
-                Console.WriteLine("Unexpected Type");
             }
         }
         public void assignAFromV(double GivenVoltage) // Ovverides the Voltage calculation as now needs to assign to each component
