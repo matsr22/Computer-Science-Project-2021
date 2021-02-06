@@ -206,13 +206,16 @@ namespace Physics_Engine
             if (Type == 's')
             {
                 double total = 0;
+                size[0] = 0;
+                size[1] = 0;
                 foreach (GeneralComponent element in ComponentList)
                 {
                     element.CalculateResistance();
-                    size[0] = 0;
-                    size[1] = 0;
-                    size[0] = Math.Max(size[0], element.size[0]);
-                    size[1] += element.size[1];
+                    if (element.GetName() != "IntRes")
+                    {
+                        size[0] = Math.Max(size[0], element.size[0]);
+                        size[1] += element.size[1];
+                    }
                     total += element.GetResistance();
                 }
                 resistance = total;
@@ -220,17 +223,17 @@ namespace Physics_Engine
             else if (Type == 'p')
             {
                 double total = 0;
+                size[0] = 0;
+                size[1] = 0;
                 foreach (GeneralComponent element in ComponentList)
                 {
                     // These two bits basicly say , ok whats my max height gonna be and ok how long am I gonna be
                     element.CalculateResistance();
-                    size[0] = 0;
-                    size[1] = 0;
                     size[0] += element.size[0]; // This might cause issues later as I don't really understand what internal does 
                     size[1] = Math.Max(size[1], element.size[1]);
-                    size[0] += 2;
                     total += 1 / element.GetResistance();
                 }
+                size[1] += 2;
                 resistance = 1 / total;
             }
         }

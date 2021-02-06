@@ -62,7 +62,7 @@ namespace GUI_for_Project
         public void ComponentClick(object sender, EventArgs e)
         {
             PictureBoxWithReference SenderPicture = (PictureBoxWithReference)sender;
-            if (SenderPicture != null)
+            if (SenderPicture.AssosiatedComponent != null)
             {
                 switch (ClickActions.SelectedItem.ToString())
                 {
@@ -110,8 +110,16 @@ namespace GUI_for_Project
                 ToBeResized.Controls[0].Width = Convert.ToInt32(width * 0.5);
             }
         }
+        public void DrawBottomLine(int StartingX,int StartingY,int EndingX)
+        {
+            for(int i = StartingX; i < EndingX; i++)
+            {
+                ModifyPicture(CreatePath("Across.png"), i, StartingY, null);
+            }
+        }
         public void DrawSection(GeneralComponent component, int StartingX, int StartingY)
         {
+            MainCircuit.Main.CalculateResistance();
             if (component.GetType() == 'b')
             {
 
@@ -127,34 +135,38 @@ namespace GUI_for_Project
 
                 // Starts From Current position and starts to draw a parrallel component
                 ModifyPicture(CreatePath("TopRightLeft.png"), StartingX, StartingY, null);
-                ModifyPicture(CreatePath("TopRightLeft.png"), StartingX + component.size[0] - 1, StartingY, null);
+                ModifyPicture(CreatePath("TopRightLeft.png"), StartingX + component.size[1] -1 , StartingY, null);
                 // Recursivley calls the next draw function to draw the bottom line
+                DrawBottomLine(StartingX + 1, StartingY, StartingX + component.size[1] - 1);
                 DrawSection(ListForDrawing[0], StartingX + 1, StartingY);
 
                 //Starts going through the vertical list of components to be drawn in parrallel
                 for (int i = 1; i < ListForDrawing.Count; i++)
                 {
                     //If the y Size of The Component that Has to be drawn previously is larger than 1, extra extentions are drawn 
-                    for (int x = 1; x < ListForDrawing[i - 1].size[1]; x++)
+                    for (int x = 1; x < ListForDrawing[i - 1].size[0]; x++)
                     {
 
                         StartingY--;//Moves the Y value up
                         ModifyPicture(CreatePath("Down.png"), StartingX, StartingY, null);//Draws a vertical Straight Line
-                        ModifyPicture(CreatePath("Down.png"), StartingX + (component.size[0] - 1), StartingY, null);//Draws the corresponding line on the other side
+                        ModifyPicture(CreatePath("Down.png"), StartingX + (component.size[1] - 1), StartingY, null);//Draws the corresponding line on the other side
                     }
                     StartingY--;//Itterates the Y one more
                     if (i == ListForDrawing.Count - 1)// If this is the last component in the List, Draw a different joining wire
                     {
                         ModifyPicture(CreatePath("RightBottom.png"), StartingX, StartingY, null);
-                        ModifyPicture(CreatePath("LeftBottom.png"), StartingX + (component.size[0] - 1), StartingY, null);
+                        ModifyPicture(CreatePath("LeftBottom.png"), StartingX + (component.size[1] - 1), StartingY, null);
                     }
                     else
                     {
                         ModifyPicture(CreatePath("TopRightBottom.png"), StartingX, StartingY, null);//If not then Just branch for the next component
-                        ModifyPicture(CreatePath("TopLeftBottom.png"), StartingX + (component.size[0] - 1), StartingY, null);
+                        ModifyPicture(CreatePath("TopLeftBottom.png"), StartingX + (component.size[1] - 1), StartingY, null);
                     }
+                    DrawBottomLine(StartingX + 1, StartingY, StartingX + component.size[1] - 1);
                     DrawSection(ListForDrawing[i], StartingX + 1, StartingY);
+
                 }
+                
 
             }
             else if (component.GetType() == 's')
@@ -165,7 +177,7 @@ namespace GUI_for_Project
                     if (subComponent.GetName() != "IntRes")
                     {
                         DrawSection(subComponent, StartingX, StartingY);//Draws each one 
-                        StartingX += subComponent.size[0] + 1;// Increments The starting X so it is in the correct position for next component.
+                        StartingX += subComponent.size[1] ;// Increments The starting X so it is in the correct position for next component.
                     }
                 }
             }
