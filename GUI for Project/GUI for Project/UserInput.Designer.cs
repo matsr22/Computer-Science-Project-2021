@@ -30,6 +30,7 @@
         {
             this.InstructionLabel = new System.Windows.Forms.Label();
             this.InputBox = new System.Windows.Forms.TextBox();
+            this.UnitListBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // InstructionLabel
@@ -49,11 +50,20 @@
             this.InputBox.TabIndex = 1;
             this.InputBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputBox_KeyDown);
             // 
+            // UnitListBox
+            // 
+            this.UnitListBox.FormattingEnabled = true;
+            this.UnitListBox.Location = new System.Drawing.Point(198, 126);
+            this.UnitListBox.Name = "UnitListBox";
+            this.UnitListBox.Size = new System.Drawing.Size(57, 21);
+            this.UnitListBox.TabIndex = 2;
+            // 
             // InputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.UnitListBox);
             this.Controls.Add(this.InputBox);
             this.Controls.Add(this.InstructionLabel);
             this.Name = "InputForm";
@@ -67,5 +77,6 @@
 
         private System.Windows.Forms.Label InstructionLabel;
         private System.Windows.Forms.TextBox InputBox;
+        private System.Windows.Forms.ComboBox UnitListBox;
     }
 }

@@ -44,7 +44,7 @@ namespace GUI_for_Project
         private void CustomBuilder_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form CircuitBuilder = new Form1();
+            Form CircuitBuilder = new CircuitView();
             CircuitBuilder.ShowDialog();
             this.Close();
         }

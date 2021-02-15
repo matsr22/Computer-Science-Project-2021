@@ -61,6 +61,12 @@
     <Compile Include="Circuit View.Designer.cs">
       <DependentUpon>Circuit View.cs</DependentUpon>
     </Compile>
+    <Compile Include="BaseCircuitGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseCircuitGUI.Designer.cs">
+      <DependentUpon>BaseCircuitGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BaseCircuitGUI.resx">
+      <DependentUpon>BaseCircuitGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Circuit View.resx">
       <DependentUpon>Circuit View.cs</DependentUpon>
     </EmbeddedResource>

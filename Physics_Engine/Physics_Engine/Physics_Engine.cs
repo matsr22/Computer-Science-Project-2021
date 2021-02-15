@@ -83,15 +83,23 @@ namespace Physics_Engine
         protected double voltage;
         protected double current;
         protected string name;
-        protected internal int[] size = new int[]{0,0};
+        protected internal int ysize;
+        protected internal int xsize;
+        protected bool IsTargetedCurrentProbe;
+
         public GeneralComponent(string Assignedname)
         {
             name = Assignedname;
             Type = 'b';
+            IsTargetedCurrentProbe = false;
         }
         public string GetName()
         {
             return name;
+        }
+        public double GetCurrent()
+        {
+            return current;
         }
         public List<GeneralComponent> GetCopyOfSubList()
         {
@@ -105,7 +113,7 @@ namespace Physics_Engine
         {
             return voltage;
         }
-        public bool ComponentSearch(string NameOfComponent, string Action,string[] Values)
+        public bool ComponentSearch(string NameOfComponent,  string Action,params string[] Values)
         {
             if (NameOfComponent == name)
             {
@@ -124,7 +132,9 @@ namespace Physics_Engine
                                 case "Insert":
                                     InsertComponent(component, Convert.ToDouble(Values[0]), Convert.ToChar(Values[1]));// Resistance, Mode(s/p)
                                     goto Done;
-                                    
+                                case "Remove":
+                                    RemoveComponent(component);
+                                    goto Done;
                             }
                         }
                     }
@@ -134,6 +144,23 @@ namespace Physics_Engine
             }
 
         }
+        public void RemoveComponent(GeneralComponent component)
+        {
+            ComponentList.Remove(component);
+            if (ComponentList.Count == 1)
+            {
+                GeneralComponent CarryComponent = ComponentList[0];
+                Type = 'b';
+                resistance = CarryComponent.GetResistance();
+                ysize = 1;
+                xsize = 1;
+                name = CarryComponent.GetName();
+                IsTargetedCurrentProbe = CarryComponent.IsTargetedCurrentProbe;
+                ComponentList.Clear();
+            }
+
+        }
+
         public GeneralComponent FindComponentFromName(string NameOfComponent)
         {
             if(NameOfComponent == name)
@@ -175,8 +202,7 @@ namespace Physics_Engine
                 NewComponent.AddComponent(component);
                 NewComponent.AddComponent(PhysicsGlobals.CreateSimpleComponent(Resistance));
                 // Removes the old and replaces with the new
-                ComponentList.Remove(component);
-                ComponentList.Add(NewComponent);
+                ComponentList[ComponentList.IndexOf(component)] = NewComponent;
             }
             else if (Mode == 'p')
             {
@@ -187,8 +213,8 @@ namespace Physics_Engine
                 NewComponent.AssignType('p');
                 NewComponent.AddComponent(component);
                 NewComponent.AddComponent(PhysicsGlobals.CreateSimpleComponent(Resistance));
-                ComponentList.Remove(component);
-                ComponentList.Add(NewComponent);
+                ComponentList[ComponentList.IndexOf(component)] = NewComponent;
+
             }
             else
             {
@@ -206,15 +232,15 @@ namespace Physics_Engine
             if (Type == 's')
             {
                 double total = 0;
-                size[0] = 0;
-                size[1] = 0;
+                ysize = 0;
+                xsize = 0;
                 foreach (GeneralComponent element in ComponentList)
                 {
                     element.CalculateResistance();
                     if (element.GetName() != "IntRes")
                     {
-                        size[0] = Math.Max(size[0], element.size[0]);
-                        size[1] += element.size[1];
+                        ysize = Math.Max(ysize, element.ysize);
+                        xsize += element.xsize;
                     }
                     total += element.GetResistance();
                 }
@@ -223,22 +249,23 @@ namespace Physics_Engine
             else if (Type == 'p')
             {
                 double total = 0;
-                size[0] = 0;
-                size[1] = 0;
+                ysize = 0;
+                xsize = 0;
                 foreach (GeneralComponent element in ComponentList)
                 {
                     // These two bits basicly say , ok whats my max height gonna be and ok how long am I gonna be
                     element.CalculateResistance();
-                    size[0] += element.size[0]; // This might cause issues later as I don't really understand what internal does 
-                    size[1] = Math.Max(size[1], element.size[1]);
+                    ysize += element.ysize; // This might cause issues later as I don't really understand what internal does 
+                    xsize = Math.Max(xsize, element.xsize);
                     total += 1 / element.GetResistance();
                 }
-                size[1] += 2;
+                xsize += 2;
                 resistance = 1 / total;
             }
         }
         public void assignAFromV(double GivenVoltage) // Ovverides the Voltage calculation as now needs to assign to each component
         {
+
             voltage = GivenVoltage;
             current = GivenVoltage / resistance;
             foreach (GeneralComponent element in ComponentList)// Voltage across components in parallel is the same so all sub-components are assigned the same voltage
@@ -276,7 +303,8 @@ namespace Physics_Engine
         public void AssignResistance(double AssignedRes)
         {
             resistance = AssignedRes;
-            size = new int[] { 1, 1 };
+            xsize = 1;
+            ysize = 1;
         }
     }
 }

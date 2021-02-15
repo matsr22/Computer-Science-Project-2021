@@ -13,12 +13,19 @@ namespace GUI_for_Project
     public partial class InputForm : Form
     {
         public string data;
-        Form1 ToGoBackTo;
-        public InputForm(Form1 sender,string instruction)
+        private string[] UnitPrefixes = new string[] {"", "n", "µ", "m", "k","M","G"};
+        private string[] PrefixForShowing;
+        public string ChosenPrefix;
+        public InputForm(string instruction,char UnitPrefix)
         {
             InitializeComponent();
-            ToGoBackTo = sender;
             InstructionLabel.Text = instruction;
+            PrefixForShowing = UnitPrefixes;
+            for (int i = 0;i<PrefixForShowing.Length;i++)
+            {
+                PrefixForShowing[i] = PrefixForShowing[i] + UnitPrefix;
+            }
+            UnitListBox.DataSource = PrefixForShowing;
         }
 
         private void InputBox_KeyDown(object sender, KeyEventArgs e)
@@ -29,6 +36,7 @@ namespace GUI_for_Project
                 {
 
                     data = (InputBox.Text);
+                    ChosenPrefix = UnitListBox.Text;
                     Close();
                 }
                 else

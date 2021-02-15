@@ -7,123 +7,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Physics_Engine ;
+using Physics_Engine;
 
 namespace GUI_for_Project
 {
-    public partial class CircuitView  : Form
+    public partial class BaseCircuitGUI : Form
     {
-        // Local Variables
-        #region Locals
-        private string ImageDefaultPath = @"C:\Users\matth\source\repos\matsr22\Computer-Science-Project-2021\GUI for Project\GUI for Project\Images\";// This is where most images will be kept
-        private int numRows;
-        private int numColls;
-        private Circuit MainCircuit;
-        private int MiddleCollumn;
-        private GeneralComponent CurrentProbeTarget;
-        #endregion
-        public CircuitView()
+        protected string ImageDefaultPath = @"C:\Users\matth\source\repos\matsr22\Computer-Science-Project-2021\GUI for Project\GUI for Project\Images\";// This is where most images will be kept
+        protected int numRows;
+        protected int numColls;
+        protected Circuit MainCircuit;
+        protected int MiddleCollumn;
+        protected GeneralComponent CurrentProbeTarget;
+        public BaseCircuitGUI()
         {
-
             InitializeComponent();
-            numRows = ComponentList.RowCount;
-            numColls = ComponentList.ColumnCount;
-            MiddleCollumn = numColls / 2;
-            CreatePanel();
-            ResetPanel();
-            CreateBasicCircuit();
         }
-
-        // This is stuff that is mainly responsible for the custom builder 
-        #region UIFunction
-        public void CreateBasicCircuit()// Remove Testing stuff when done
-        {
-            double Voltage = GetUserInputAsDouble("Please Enter the Voltage of the Circuit",'V');
-            double IntRes = GetUserInputAsDouble("Please Enter the internal resistance of the Circuit", 'Ω');
-            double InitialResistor = GetUserInputAsDouble("Please Enter the Resistance of the first resistor", 'Ω');
-            MainCircuit = new Circuit('v', Voltage, IntRes, InitialResistor);
-            DrawCircuit();
-        }
-
-
-
-        public void ComponentClick(object sender, EventArgs e)
-        {
-            PictureBoxWithReference SenderPicture = (PictureBoxWithReference)sender;
-            if (SenderPicture.AssosiatedComponent != null)
-            {
-                switch (ClickActions.SelectedItem.ToString())
-                {
-
-                    case ("Edit Values"):
-                        double value = GetUserInputAsDouble($"What would you like to change the value of {SenderPicture.AssosiatedComponent.GetName()} to ?", 'Ω');
-                        SenderPicture.AssosiatedComponent.AssignResistance(value);
-                        Label InternalLabel = ((Label)SenderPicture.Controls[0]);
-                        InternalLabel.Text = PrefixDouble(value, 'Ω');
-                        RefreshDiagram();
-                        break;
-
-
-                    case "Add Resistor In Parrallel":
-                        double NewResistanceValue = GetUserInputAsDouble("What is the resistance of the new resistor", 'Ω');
-                        MainCircuit.Main.ComponentSearch(SenderPicture.AssosiatedComponent.GetName(), "Insert", new string[] { NewResistanceValue.ToString(), "p" });
-                        RefreshDiagram();
-                        break;
-                    case "Add Resistor In Series":
-                        double NewResistanceValue2 = GetUserInputAsDouble("What is the resistance of the new resistor", 'Ω');
-                        MainCircuit.Main.ComponentSearch(SenderPicture.AssosiatedComponent.GetName(), "Insert", new string[] { NewResistanceValue2.ToString(), "s" });
-                        RefreshDiagram();
-                        break;
-                    case "Remove Resistor":
-                        MainCircuit.Main.ComponentSearch(SenderPicture.AssosiatedComponent.GetName(),"Remove");
-                        RefreshDiagram();
-                        break;
-                    case "Current Probe":
-                        CurrentProbeTarget = SenderPicture.AssosiatedComponent;
-                        UpdateCurrentProbeText();
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
-            }
-        }
-
-
-        public void UpdateCurrentProbeText()
-        {
-            if (CurrentProbeTarget != null)
-            {
-                CurrentVal.Text = PrefixDouble(CurrentProbeTarget.GetCurrent(), 'Ω');
-            }
-        }
-        #endregion
-
-        //This is stuff required for the circuit simulation to work and is not necessarily part of the custom builder
         #region BasicFunction 
-        public void ClearPanel()
-        {
-            ComponentList.Controls.Clear();
-        }
         public void DrawCircuit()
         {
             double Voltage = MainCircuit.GetEmfValue();
-            MainCircuit.Main.CalculateResistance();
-            UpdateDimensions();
+            MainCircuit.Main.CalculateResistance(); // Recalcuates so all drawn values are correct
+            UpdateDimensions();//Resizes the table based on the current size of the circuit
             ResetPanel();
-            DrawSection(MainCircuit.Main, 1, numRows - 1);
+            DrawSection(MainCircuit.Main, 1, numRows - 1);//Draws the circuit recursively
             if (MainCircuit.Main.FindComponentFromName("IntRes").GetResistance() == 0)
             {
-                ModifyPicture("Cell.png", MiddleCollumn, 0, PrefixDouble(Voltage, 'V'));
+                ModifyPicture("Cell.png", MiddleCollumn, 0, PrefixDouble(Voltage, 'V'));//Adds a Cell in the centre of the image
             }
             else
             {
                 ModifyPicture("Cell.png", MiddleCollumn, 0, PrefixDouble(Voltage, 'V'));
-                GeneralComponent InternalResistance = MainCircuit.Main.FindComponentFromName("IntRes");
-                ModifyPicture("ResistorIntRes.png", MiddleCollumn + 1, 0, PrefixDouble(InternalResistance.GetResistance(), 'Ω'));
+                GeneralComponent InternalResistance = MainCircuit.Main.FindComponentFromName("IntRes");//Finds the internal resistance from the circuit
+                ModifyPicture("ResistorIntRes.png", MiddleCollumn + 1, 0, PrefixDouble(InternalResistance.GetResistance(), 'Ω'));//Updates the diagram to include internal resistance
 
             }
         }
-        private void ImageResizer(object sender, EventArgs e) // Resizes the text under a component so it is consistant
+        private void ImageResizer(object sender, EventArgs e) // Resizes the text under a component so it is consistant (Dosn't really work as intended)
         {
             PictureBoxWithReference ToBeResized = sender as PictureBoxWithReference;
             if (ToBeResized != null)
@@ -134,29 +54,33 @@ namespace GUI_for_Project
                 ToBeResized.Controls[0].Width = Convert.ToInt32(width * 0.5);
             }
         }
-        public void UpdateDimensions()
+        public virtual void UpdateDimensions()
         {
-            ComponentList.RowCount = MainCircuit.Main.ysize + 3;
+            ComponentList.RowCount = MainCircuit.Main.ysize + 3;// The Plus bits on here control the vertical and horizontal padding
             ComponentList.ColumnCount = MainCircuit.Main.xsize + 4;
             numRows = ComponentList.RowCount;
             numColls = ComponentList.ColumnCount;
             MiddleCollumn = numColls / 2;
-            ClearPanel();
+            ClearPanel();// All controls have to be removed for resizing to work, this introduces some visual artefacting but I'm not sure how to stop this
             CreatePanel();
         }
-        public void RefreshDiagram()
+        public void ClearPanel()
+        {
+            ComponentList.Controls.Clear();
+        }
+        public void RefreshDiagram()//Used Whenever a change has occured in the circuit, obviously not in the parent form 
         {
             RunVoltageCalculations();
             DrawCircuit();
         }
-        public void RunVoltageCalculations()
+        public virtual void RunVoltageCalculations()//Reruns Voltage Calcs and in Forms with Current/ Voltage probes updates their values
         {
             MainCircuit.RunVoltageCalcs();
-            UpdateCurrentProbeText();
+            //UpdateCurrentProbeText();
         }
-        public void DrawBottomLine(int StartingX,int StartingY,int EndingX)
+        public void DrawBottomLine(int StartingX, int StartingY, int EndingX)// Draws a line when one branch of a parrallel component has more components than the other
         {
-            for(int i = StartingX; i < EndingX; i++)
+            for (int i = StartingX; i < EndingX; i++)
             {
                 ModifyPicture("Across.png", i, StartingY);
             }
@@ -165,12 +89,8 @@ namespace GUI_for_Project
         {
             if (component.GetType() == 'b')
             {
-
-                
-                    PictureBoxWithReference PictureBoxImage = ModifyPicture("Resistor.png", StartingX, StartingY, PrefixDouble(component.GetResistance(), 'Ω')); // This code may have to be changed if I need to make the resistor into a 2x1 image rather than a 1x1
-                    PictureBoxImage.AssosiatedComponent = component;
-                    
-                
+                PictureBoxWithReference PictureBoxImage = ModifyPicture("Resistor.png", StartingX, StartingY, PrefixDouble(component.GetResistance(), 'Ω')); // This code may have to be changed if I need to make the resistor into a 2x1 image rather than a 1x1
+                PictureBoxImage.AssosiatedComponent = component;
             }
             else if (component.GetType() == 'p')
             {
@@ -178,7 +98,7 @@ namespace GUI_for_Project
 
                 // Starts From Current position and starts to draw a parrallel component
                 ModifyPicture("TopRightLeft.png", StartingX, StartingY).AssosiatedComponent = component;
-                ModifyPicture("TopRightLeft.png", StartingX + component.xsize -1 , StartingY).AssosiatedComponent = component;
+                ModifyPicture("TopRightLeft.png", StartingX + component.xsize - 1, StartingY).AssosiatedComponent = component;
                 // Recursivley calls the next draw function to draw the bottom line
                 DrawBottomLine(StartingX + 1, StartingY, StartingX + component.ysize - 1);
                 DrawSection(ListForDrawing[0], StartingX + 1, StartingY);
@@ -209,7 +129,7 @@ namespace GUI_for_Project
                     DrawSection(ListForDrawing[i], StartingX + 1, StartingY);
 
                 }
-                
+
 
             }
             else if (component.GetType() == 's')
@@ -220,7 +140,7 @@ namespace GUI_for_Project
                     if (subComponent.GetName() != "IntRes")
                     {
                         DrawSection(subComponent, StartingX, StartingY);//Draws each one 
-                        StartingX += subComponent.xsize ;// Increments The starting X so it is in the correct position for next component.
+                        StartingX += subComponent.xsize;// Increments The starting X so it is in the correct position for next component.
                     }
                 }
             }
@@ -239,7 +159,7 @@ namespace GUI_for_Project
                 ValueOfComponent.Anchor = AnchorStyles.Bottom;
                 ValueOfComponent.AutoSize = true;
                 ImagePictureBox.Controls.Add(ValueOfComponent);
-                
+
                 ImagePictureBox.Resize += ImageResizer; // Image Resizer is the event handler I created to make sure everything stays the right size
             }
 
@@ -258,30 +178,30 @@ namespace GUI_for_Project
         {
             return ImageDefaultPath + ImagePath;
         }
-        public void AddPicture(string path, int x, int y)// Adds the blank picture
+        public virtual void AddPicture(string path, int x, int y)// Adds the blank picture
         {
 
             ComponentList.Controls.Add(new PictureBoxWithReference() { Image = Image.FromFile(CreatePath(path)), SizeMode = PictureBoxSizeMode.StretchImage, Margin = new Padding(0), Dock = DockStyle.Fill }, x, y);
-            ComponentList.Controls[x * numRows + y].Click += new EventHandler(ComponentClick);
+            //ComponentList.Controls[x * numRows + y].Click += new EventHandler(ComponentClick);
         }
-        public string[] GetUserInput(string Instruction,char UnitPrefix)
+        public string[] GetUserInput(string Instruction, char UnitPrefix)
         {
-            var f2 = new InputForm(Instruction,UnitPrefix);
+            var f2 = new InputForm(Instruction, UnitPrefix);
             f2.ShowDialog(this);
             string ToBeReturned = f2.data;
             string SelectedPrefix = f2.ChosenPrefix;
             f2.Dispose();
-            return new string[] { ToBeReturned, SelectedPrefix } ;
+            return new string[] { ToBeReturned, SelectedPrefix };
         }
-        public double GetUserInputAsDouble(string Instruction,char UnitPrefix)
+        public double GetUserInputAsDouble(string Instruction, char UnitPrefix)
         {
             while (true)
             {
-                string[] InputAsString = GetUserInput(Instruction,UnitPrefix);
+                string[] InputAsString = GetUserInput(Instruction, UnitPrefix);
                 string Value = TryToConvertToStandardForm(InputAsString[0]);
                 if (Value != null)
                 {
-                    string ParsedValue = RemovePrefixAndCheckDouble(Value,InputAsString[1]);
+                    string ParsedValue = RemovePrefixAndCheckDouble(Value, InputAsString[1]);
                     if (ParsedValue != null)
                     {
                         return Convert.ToDouble(ParsedValue);
@@ -290,33 +210,33 @@ namespace GUI_for_Project
                 MessageBox.Show("Input was not in correct Format, Enter again");
             }
         }
-        public string PrefixDouble(double input,char UnitPrefix)
+        public string PrefixDouble(double input, char UnitPrefix)// Adds all the unit prefixes to the right magnitude of double, bit boring probably could have done this with some kind of clever dictionary
         {
-            if (1 <= input&& input < 1000)
+            if (1 <= input && input < 1000)
             {
                 return input.ToString() + UnitPrefix;
             }
-            else if(0.001<= input && input < 1)
+            else if (0.001 <= input && input < 1)
             {
-                return (input*1000).ToString() + "m" + UnitPrefix;
+                return (input * 1000).ToString() + "m" + UnitPrefix;
             }
-            else if(1.0E-6<=input&& input < 0.001)
+            else if (1.0E-6 <= input && input < 0.001)
             {
-                return (input*1E6).ToString() + "µ" + UnitPrefix;
+                return (input * 1E6).ToString() + "µ" + UnitPrefix;
             }
-            else if(1.0E-9<=input && input < 1.0E-6)
+            else if (1.0E-9 <= input && input < 1.0E-6)
             {
-                return (input*1E9).ToString() + "n" + UnitPrefix;
+                return (input * 1E9).ToString() + "n" + UnitPrefix;
             }
             else if (1000 <= input && input < 1E6)
             {
-                return (input / 1000).ToString() + "k"+UnitPrefix;
+                return (input / 1000).ToString() + "k" + UnitPrefix;
             }
-            else if (1E6<= input && input < 1E9)
+            else if (1E6 <= input && input < 1E9)
             {
                 return (input / 1E6).ToString() + "M" + UnitPrefix;
             }
-            else if(1E9<=input&& input < 1E12)
+            else if (1E9 <= input && input < 1E12)
             {
                 return (input / 1E9).ToString() + "G" + UnitPrefix;
             }
@@ -325,7 +245,7 @@ namespace GUI_for_Project
                 return (input).ToString("G3") + UnitPrefix;// The G3 Just tells .ToString how this should be Displayed - In this case it is in standard form to 3 sf on mantissa and 2 s.f on exponent
             }
         }
-        public string RemovePrefixAndCheckDouble(string input,string prefix)
+        public string RemovePrefixAndCheckDouble(string input, string prefix)
         {
             try
             {
@@ -361,7 +281,7 @@ namespace GUI_for_Project
                 return null;
             }
         }
-        public string TryToConvertToStandardForm(string Input)
+        public string TryToConvertToStandardForm(string Input)//This might be entirely unecessary but whatever
         {
             Input = Input.ToLower();
             if (Input.Contains("e"))
@@ -382,7 +302,7 @@ namespace GUI_for_Project
             {
 
                 return Input;
-            }    
+            }
 
         }
         public void CreatePanel()
@@ -426,14 +346,5 @@ namespace GUI_for_Project
 
 
         #endregion
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-    }
-    public class PictureBoxWithReference : PictureBox
-    {
-        public GeneralComponent AssosiatedComponent;
     }
 }
