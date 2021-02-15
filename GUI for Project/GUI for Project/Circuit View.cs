@@ -432,8 +432,5 @@ namespace GUI_for_Project
 
         }
     }
-    public class PictureBoxWithReference : PictureBox
-    {
-        public GeneralComponent AssosiatedComponent;
-    }
+
 }

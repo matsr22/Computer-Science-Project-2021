@@ -11,7 +11,7 @@ using Physics_Engine;
 
 namespace GUI_for_Project
 {
-    public partial class BaseCircuitGUI : Form
+    public abstract partial class BaseCircuitGUI : Form
     {
         protected string ImageDefaultPath = @"C:\Users\matth\source\repos\matsr22\Computer-Science-Project-2021\GUI for Project\GUI for Project\Images\";// This is where most images will be kept
         protected int numRows;
@@ -22,6 +22,11 @@ namespace GUI_for_Project
         public BaseCircuitGUI()
         {
             InitializeComponent();
+            numRows = ComponentList.RowCount;
+            numColls = ComponentList.ColumnCount;
+            MiddleCollumn = numColls / 2;
+            CreatePanel();
+            ResetPanel();
         }
         #region BasicFunction 
         public void DrawCircuit()
@@ -76,7 +81,7 @@ namespace GUI_for_Project
         public virtual void RunVoltageCalculations()//Reruns Voltage Calcs and in Forms with Current/ Voltage probes updates their values
         {
             MainCircuit.RunVoltageCalcs();
-            //UpdateCurrentProbeText();
+
         }
         public void DrawBottomLine(int StartingX, int StartingY, int EndingX)// Draws a line when one branch of a parrallel component has more components than the other
         {
@@ -182,7 +187,7 @@ namespace GUI_for_Project
         {
 
             ComponentList.Controls.Add(new PictureBoxWithReference() { Image = Image.FromFile(CreatePath(path)), SizeMode = PictureBoxSizeMode.StretchImage, Margin = new Padding(0), Dock = DockStyle.Fill }, x, y);
-            //ComponentList.Controls[x * numRows + y].Click += new EventHandler(ComponentClick);
+
         }
         public string[] GetUserInput(string Instruction, char UnitPrefix)
         {
@@ -346,5 +351,9 @@ namespace GUI_for_Project
 
 
         #endregion
+    }
+    public class PictureBoxWithReference : PictureBox
+    {
+        public GeneralComponent AssosiatedComponent;
     }
 }

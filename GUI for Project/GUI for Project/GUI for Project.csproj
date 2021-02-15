@@ -67,6 +67,12 @@
     <Compile Include="BaseCircuitGUI.Designer.cs">
       <DependentUpon>BaseCircuitGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomCircuitBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomCircuitBuilder.Designer.cs">
+      <DependentUpon>CustomCircuitBuilder.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ContentsPage.resx">
       <DependentUpon>ContentsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomCircuitBuilder.resx">
+      <DependentUpon>CustomCircuitBuilder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInput.resx">
       <DependentUpon>UserInput.cs</DependentUpon>

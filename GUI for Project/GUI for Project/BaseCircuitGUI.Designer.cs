@@ -88,6 +88,6 @@ namespace GUI_for_Project
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel ComponentList;
+        protected System.Windows.Forms.TableLayoutPanel ComponentList;
     }
 }
