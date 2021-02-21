@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace Physics_Engine
 {
 
-    public class Test { }
     public static class PhysicsGlobals
     {
         public static int ResistorNum = 1; // Globals to give the components unique names
@@ -37,7 +36,10 @@ namespace Physics_Engine
         {
             Main = new GeneralComponent("Main");
             Main.AssignType('s');
-            Main.AddComponent(PhysicsGlobals.CreateSimpleComponent(IntRes,"IntRes"));
+            if (IntRes != 0)
+            {
+                Main.AddComponent(PhysicsGlobals.CreateSimpleComponent(IntRes, "IntRes"));
+            }
             Main.AddComponent(PhysicsGlobals.CreateSimpleComponent(ValOfFirstRes));
             Type = typeOfPsource;
             emfValue = valueofPsource;
@@ -57,6 +59,20 @@ namespace Physics_Engine
         public double GetEmfValue()
         {
             return emfValue;
+        }
+        public void AssignEMF(double EMFVal)
+        {
+            emfValue = EMFVal;
+            RunVoltageCalcs();
+
+        }
+        public char GetTypeOfPsource()
+        {
+            return Type;
+        }
+        public void ChangeType(char NewType)
+        {
+            Type = NewType;
         }
     }
     public class TestingClass
@@ -143,6 +159,20 @@ namespace Physics_Engine
                 return false;
             }
 
+        }
+        public void BatchChangeResistance(double NewResistance)
+        {
+            if(Type == 'b')
+            {
+                AssignResistance(NewResistance);
+            }
+            else
+            {
+                foreach(GeneralComponent element in ComponentList)
+                {
+                    element.BatchChangeResistance(NewResistance);
+                }
+            }
         }
         public void RemoveComponent(GeneralComponent component)
         {

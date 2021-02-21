@@ -20,6 +20,10 @@ namespace GUI_for_Project
 
         private void Settings_Click(object sender, EventArgs e)
         {
+            Hide();
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
+            Close();
 
         }
 

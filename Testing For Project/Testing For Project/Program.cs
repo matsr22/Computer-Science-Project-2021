@@ -14,7 +14,7 @@ namespace Testing_For_Project
             Console.WriteLine("Other thing");
             */
             //Convert.ToDouble("ur");
-            Console.WriteLine((88883553.2932).ToString("G3"));
+            double foo = Convert.ToDouble("hd");
         }
     }
 

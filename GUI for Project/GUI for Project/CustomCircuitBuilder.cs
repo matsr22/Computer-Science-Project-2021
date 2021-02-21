@@ -11,9 +11,12 @@ namespace GUI_for_Project
 {
     public partial class CustomCircuitBuilder : BaseCircuitGUI
     {
+        protected GeneralComponent CurrentProbeTarget;
+        protected GeneralComponent VoltageTarget;
         public CustomCircuitBuilder()
         {
             InitializeComponent();
+            WindowState = FormWindowState.Maximized;
             numRows = ComponentList.RowCount;
             numColls = ComponentList.ColumnCount;
             MiddleCollumn = numColls / 2;
@@ -22,8 +25,9 @@ namespace GUI_for_Project
             CreateBasicCircuit();
         }
         #region UIFunction
-        public void CreateBasicCircuit()// Remove Testing stuff when done
+        public void CreateBasicCircuit()
         {
+            // User Input
             double Voltage = GetUserInputAsDouble("Please Enter the Voltage of the Circuit", 'V');
             double IntRes = GetUserInputAsDouble("Please Enter the internal resistance of the Circuit", 'Ω');
             double InitialResistor = GetUserInputAsDouble("Please Enter the Resistance of the first resistor", 'Ω');
@@ -35,8 +39,17 @@ namespace GUI_for_Project
 
         public void ComponentClick(object sender, EventArgs e)
         {
-            PictureBoxWithReference SenderPicture = (PictureBoxWithReference)sender;
-            if (SenderPicture.AssosiatedComponent != null)
+            PictureBoxWithReference SenderPicture;
+            if (sender.GetType() == new Label().GetType())
+            {
+                SenderPicture = (PictureBoxWithReference)(((Label)sender).Parent);
+            }
+            else
+            {
+                SenderPicture = (PictureBoxWithReference)sender;
+            }
+
+            if (SenderPicture.AssosiatedComponent != null && ClickActions.SelectedItem != null)
             {
                 switch (ClickActions.SelectedItem.ToString())
                 {
@@ -68,18 +81,37 @@ namespace GUI_for_Project
                         CurrentProbeTarget = SenderPicture.AssosiatedComponent;
                         UpdateCurrentProbeText();
                         break;
+                    case "Voltage Probe":
+                        VoltageTarget = SenderPicture.AssosiatedComponent;
+                        UpdateVoltageTargetText();
+                        break;
                     default:
                         throw new NotImplementedException();
                 }
             }
         }
+        public void EditVoltageValue(object sender, EventArgs e)
+        {
+            double value = GetUserInputAsDouble("What would you like to change the value of the EMF source to?", 'V');
+            MainCircuit.AssignEMF(value);
+            UpdateCurrentProbeText();
+            UpdateVoltageTargetText();
+            RefreshDiagram();
+        }
 
 
         public void UpdateCurrentProbeText()
         {
-            if (CurrentProbeTarget != null)
+            if (CurrentProbeTarget != null)//Checks current probe actual has a target
             {
-                CurrentVal.Text = PrefixDouble(CurrentProbeTarget.GetCurrent(), 'Ω');
+                CurrentVal.Text = PrefixDouble(CurrentProbeTarget.GetCurrent(), 'A');
+            }
+        }
+        public void UpdateVoltageTargetText()
+        {
+            if(VoltageTarget!= null)
+            {
+                VoltageDisplay.Text = PrefixDouble(VoltageTarget.GetVoltage(), 'V');
             }
         }
         #endregion
@@ -88,12 +120,51 @@ namespace GUI_for_Project
         {
             base.RunVoltageCalculations();
             UpdateCurrentProbeText();
+            UpdateVoltageTargetText();
         }
         public override void AddPicture(string path, int x, int y)
         {
             base.AddPicture(path, x, y);
             ComponentList.Controls[x * numRows + y].Click += new EventHandler(ComponentClick);
         }
+        public override void ModifyComponentImage(string path, string AssignedValue, ref PictureBoxWithReference ImagePictureBox)
+        {
+            ImagePictureBox.Controls.Clear();
+            ImagePictureBox.Image = Image.FromFile(path);
+            ImagePictureBox.Resize -= ImageResizer; // This removes any previous event handler bc for some reason having more than one breaks stuff
+            if (AssignedValue != null) // If the Image has data that needs displaying e.g. voltage or current or resistance A label is added to the list of controls of the picture
+            {
+                Label ValueOfComponent = new Label();
+                ValueOfComponent.Text = AssignedValue;
+                ValueOfComponent.BackColor = Color.Transparent; // Transparent so underneath component can be seen
+                ValueOfComponent.Dock = DockStyle.Fill;
+                ValueOfComponent.TextAlign = ContentAlignment.MiddleCenter;
+                ValueOfComponent.Click += new EventHandler(ComponentClick);
+                ImagePictureBox.Controls.Add(ValueOfComponent);
+
+                ImagePictureBox.Resize += ImageResizer; // Image Resizer is the event handler I created to make sure everything stays the right size
+            }
+        }
+        public override void DrawEMFSource(double EMFVal)
+        {
+            base.DrawEMFSource(EMFVal);
+            ComponentList.Controls[MiddleCollumn * numRows].Click += new EventHandler(EditVoltageValue);
+            ComponentList.Controls[MiddleCollumn * numRows].Controls[0].Click += new EventHandler(EditVoltageValue);
+        }
+
         #endregion
+
+        private void Reset_Click(object sender, EventArgs e)
+        {
+            ResetPanel();
+            CreateBasicCircuit();
+        }
+
+
+        private void RecalculateValues_Click(object sender, EventArgs e)
+        {
+            MainCircuit.Main.CalculateResistance();
+            RefreshDiagram();
+        }
     }
 }

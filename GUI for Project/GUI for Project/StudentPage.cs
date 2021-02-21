@@ -33,7 +33,10 @@ namespace GUI_for_Project
 
         private void OpenLearningModule_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            Form LearningMods = new LearningModules();
+            LearningMods.ShowDialog();
+            this.Close();
         }
 
         private void OpenFile_Click(object sender, EventArgs e)
@@ -43,10 +46,10 @@ namespace GUI_for_Project
 
         private void CustomBuilder_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             CustomCircuitBuilder CustomBuilder = new CustomCircuitBuilder();
             CustomBuilder.ShowDialog();
-            this.Close();
+            Close();
         }
     }
 }

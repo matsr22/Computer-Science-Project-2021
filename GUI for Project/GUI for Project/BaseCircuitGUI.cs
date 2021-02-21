@@ -11,14 +11,14 @@ using Physics_Engine;
 
 namespace GUI_for_Project
 {
-    public abstract partial class BaseCircuitGUI : Form
+    public partial class BaseCircuitGUI : Form
     {
         protected string ImageDefaultPath = @"C:\Users\matth\source\repos\matsr22\Computer-Science-Project-2021\GUI for Project\GUI for Project\Images\";// This is where most images will be kept
         protected int numRows;
         protected int numColls;
         protected Circuit MainCircuit;
         protected int MiddleCollumn;
-        protected GeneralComponent CurrentProbeTarget;
+
         public BaseCircuitGUI()
         {
             InitializeComponent();
@@ -31,24 +31,28 @@ namespace GUI_for_Project
         #region BasicFunction 
         public void DrawCircuit()
         {
-            double Voltage = MainCircuit.GetEmfValue();
+            double EMFValue = MainCircuit.GetEmfValue();
             MainCircuit.Main.CalculateResistance(); // Recalcuates so all drawn values are correct
             UpdateDimensions();//Resizes the table based on the current size of the circuit
             ResetPanel();
             DrawSection(MainCircuit.Main, 1, numRows - 1);//Draws the circuit recursively
-            if (MainCircuit.Main.FindComponentFromName("IntRes").GetResistance() == 0)
+            if (MainCircuit.Main.FindComponentFromName("IntRes") == null)
             {
-                ModifyPicture("Cell.png", MiddleCollumn, 0, PrefixDouble(Voltage, 'V'));//Adds a Cell in the centre of the image
+                DrawEMFSource(EMFValue);
             }
             else
             {
-                ModifyPicture("Cell.png", MiddleCollumn, 0, PrefixDouble(Voltage, 'V'));
+                DrawEMFSource(EMFValue);
                 GeneralComponent InternalResistance = MainCircuit.Main.FindComponentFromName("IntRes");//Finds the internal resistance from the circuit
-                ModifyPicture("ResistorIntRes.png", MiddleCollumn + 1, 0, PrefixDouble(InternalResistance.GetResistance(), 'Ω'));//Updates the diagram to include internal resistance
+                ModifyPicture("ResistorIntRes.png", MiddleCollumn + 1, 0, PrefixDouble(InternalResistance.GetResistance(), 'Ω')).AssosiatedComponent = InternalResistance;//Updates the diagram to include internal resistance
 
             }
         }
-        private void ImageResizer(object sender, EventArgs e) // Resizes the text under a component so it is consistant (Dosn't really work as intended)
+        public virtual void DrawEMFSource(double EMFVal)
+        {
+            ModifyPicture("Cell.png", MiddleCollumn, 0, PrefixDouble(EMFVal, MainCircuit.GetTypeOfPsource()));//Adds a Cell in the centre of the image
+        }
+        public void ImageResizer(object sender, EventArgs e) // Resizes the text under a component so it is consistant (Dosn't really work as intended)
         {
             PictureBoxWithReference ToBeResized = sender as PictureBoxWithReference;
             if (ToBeResized != null)
@@ -102,10 +106,12 @@ namespace GUI_for_Project
                 List<GeneralComponent> ListForDrawing = component.GetCopyOfSubList();// Gets a copy of the current circuit from the PhysicsEngine Module
 
                 // Starts From Current position and starts to draw a parrallel component
+                // Draws the bottom line first as if it dosn't, It ovverides TOPRIGHTLEFT
+                DrawBottomLine(StartingX + 1, StartingY, StartingX + component.xsize - 1);
                 ModifyPicture("TopRightLeft.png", StartingX, StartingY).AssosiatedComponent = component;
                 ModifyPicture("TopRightLeft.png", StartingX + component.xsize - 1, StartingY).AssosiatedComponent = component;
-                // Recursivley calls the next draw function to draw the bottom line
-                DrawBottomLine(StartingX + 1, StartingY, StartingX + component.ysize - 1);
+
+
                 DrawSection(ListForDrawing[0], StartingX + 1, StartingY);
 
                 //Starts going through the vertical list of components to be drawn in parrallel
@@ -150,7 +156,7 @@ namespace GUI_for_Project
                 }
             }
         }
-        public void ModifyComponentImage(string path, string AssignedValue, ref PictureBoxWithReference ImagePictureBox)// Needs cleaning up as reusing from earlier itterations
+        public virtual void ModifyComponentImage(string path, string AssignedValue, ref PictureBoxWithReference ImagePictureBox)// Needs cleaning up as reusing from earlier itterations
         {
             ImagePictureBox.Controls.Clear();
             ImagePictureBox.Image = Image.FromFile(path);
@@ -160,9 +166,9 @@ namespace GUI_for_Project
                 Label ValueOfComponent = new Label();
                 ValueOfComponent.Text = AssignedValue;
                 ValueOfComponent.BackColor = Color.Transparent; // Transparent so underneath component can be seen
-                ValueOfComponent.Dock = DockStyle.Bottom;
-                ValueOfComponent.Anchor = AnchorStyles.Bottom;
-                ValueOfComponent.AutoSize = true;
+                ValueOfComponent.Dock = DockStyle.Fill;
+                ValueOfComponent.TextAlign = ContentAlignment.MiddleCenter;
+
                 ImagePictureBox.Controls.Add(ValueOfComponent);
 
                 ImagePictureBox.Resize += ImageResizer; // Image Resizer is the event handler I created to make sure everything stays the right size
@@ -189,16 +195,30 @@ namespace GUI_for_Project
             ComponentList.Controls.Add(new PictureBoxWithReference() { Image = Image.FromFile(CreatePath(path)), SizeMode = PictureBoxSizeMode.StretchImage, Margin = new Padding(0), Dock = DockStyle.Fill }, x, y);
 
         }
-        public string[] GetUserInput(string Instruction, char UnitPrefix)
+        public string[] GetUserInput(string Instruction, char UnitPrefix)// This gets User Input, along with the suffix they have chosen 
         {
-            var f2 = new InputForm(Instruction, UnitPrefix);
-            f2.ShowDialog(this);
-            string ToBeReturned = f2.data;
-            string SelectedPrefix = f2.ChosenPrefix;
-            f2.Dispose();
+            string ToBeReturned ="";
+            string SelectedPrefix="";
+            bool ValidAnswer = false;
+            while (ValidAnswer != true)
+            {
+                var f2 = new InputForm(Instruction, UnitPrefix);
+                f2.ShowDialog(this);
+                ToBeReturned = f2.data;
+                SelectedPrefix = f2.ChosenPrefix;
+                f2.Dispose();
+                if(ToBeReturned != null)
+                {
+                    ValidAnswer = true;
+                }
+                else
+                {
+                    MessageBox.Show("Enter a Valid value!");
+                }
+            }
             return new string[] { ToBeReturned, SelectedPrefix };
         }
-        public double GetUserInputAsDouble(string Instruction, char UnitPrefix)
+        public double GetUserInputAsDouble(string Instruction, char UnitPrefix)//Parses the String input from GetUserInput to a double 
         {
             while (true)
             {
@@ -217,6 +237,7 @@ namespace GUI_for_Project
         }
         public string PrefixDouble(double input, char UnitPrefix)// Adds all the unit prefixes to the right magnitude of double, bit boring probably could have done this with some kind of clever dictionary
         {
+            input = Math.Round(input, 5);
             if (1 <= input && input < 1000)
             {
                 return input.ToString() + UnitPrefix;
@@ -250,7 +271,7 @@ namespace GUI_for_Project
                 return (input).ToString("G3") + UnitPrefix;// The G3 Just tells .ToString how this should be Displayed - In this case it is in standard form to 3 sf on mantissa and 2 s.f on exponent
             }
         }
-        public string RemovePrefixAndCheckDouble(string input, string prefix)
+        public string RemovePrefixAndCheckDouble(string input, string prefix)//Scales up the Suffixed value to a double
         {
             try
             {
