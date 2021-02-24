@@ -56,6 +56,12 @@
     <Compile Include="ComponentsInParrallel.Designer.cs">
       <DependentUpon>ComponentsInParrallel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComponentsInSeries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComponentsInSeries.Designer.cs">
+      <DependentUpon>ComponentsInSeries.cs</DependentUpon>
+    </Compile>
     <Compile Include="ContentsPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,12 @@
     </Compile>
     <Compile Include="CustomCircuitBuilder.Designer.cs">
       <DependentUpon>CustomCircuitBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Slide Potentiometer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Slide Potentiometer.Designer.cs">
+      <DependentUpon>Slide Potentiometer.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
@@ -124,6 +136,9 @@
     <EmbeddedResource Include="ComponentsInParrallel.resx">
       <DependentUpon>ComponentsInParrallel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ComponentsInSeries.resx">
+      <DependentUpon>ComponentsInSeries.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ContentsPage.resx">
       <DependentUpon>ContentsPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -141,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Slide Potentiometer.resx">
+      <DependentUpon>Slide Potentiometer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInput.resx">
       <DependentUpon>UserInput.cs</DependentUpon>

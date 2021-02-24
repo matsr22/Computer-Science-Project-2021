@@ -174,6 +174,7 @@ namespace GUI_for_Project
             this.SystemWideUnits.Name = "SystemWideUnits";
             this.SystemWideUnits.Size = new System.Drawing.Size(100, 21);
             this.SystemWideUnits.TabIndex = 12;
+            this.SystemWideUnits.SelectedIndexChanged += new System.EventHandler(this.SystemWideUnits_SelectedIndexChanged);
             // 
             // SystemInfo
             // 
@@ -320,11 +321,11 @@ namespace GUI_for_Project
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(361, 291);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(87, 24);
+            this.label9.Size = new System.Drawing.Size(132, 24);
             this.label9.TabIndex = 28;
-            this.label9.Text = "(No #)";
+            this.label9.Text = "(RGB CODE)";
             // 
-            // Settings
+            // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -358,7 +359,7 @@ namespace GUI_for_Project
             this.Controls.Add(this.MinValinfo);
             this.Controls.Add(this.MaxValinfo);
             this.Controls.Add(this.Title);
-            this.Name = "Settings";
+            this.Name = "SettingsForm";
             this.Text = "Settings";
             this.ResumeLayout(false);
             this.PerformLayout();

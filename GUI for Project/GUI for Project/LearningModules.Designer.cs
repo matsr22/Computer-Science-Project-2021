@@ -34,6 +34,8 @@ namespace GUI_for_Project
             this.ParraResistors = new System.Windows.Forms.Button();
             this.PowLaws = new System.Windows.Forms.Button();
             this.Ohms = new System.Windows.Forms.Button();
+            this.SeriesResistors = new System.Windows.Forms.Button();
+            this.PotentiometerButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Exit
@@ -84,11 +86,33 @@ namespace GUI_for_Project
             this.Ohms.UseVisualStyleBackColor = true;
             this.Ohms.Click += new System.EventHandler(this.Ohms_Click);
             // 
+            // SeriesResistors
+            // 
+            this.SeriesResistors.Location = new System.Drawing.Point(13, 203);
+            this.SeriesResistors.Name = "SeriesResistors";
+            this.SeriesResistors.Size = new System.Drawing.Size(146, 80);
+            this.SeriesResistors.TabIndex = 7;
+            this.SeriesResistors.Text = "Resistors In Series";
+            this.SeriesResistors.UseVisualStyleBackColor = true;
+            this.SeriesResistors.Click += new System.EventHandler(this.SeriesResistors_Click);
+            // 
+            // PotentiometerButton
+            // 
+            this.PotentiometerButton.Location = new System.Drawing.Point(184, 203);
+            this.PotentiometerButton.Name = "PotentiometerButton";
+            this.PotentiometerButton.Size = new System.Drawing.Size(154, 80);
+            this.PotentiometerButton.TabIndex = 8;
+            this.PotentiometerButton.Text = "Potential Dividers and Potentiometers";
+            this.PotentiometerButton.UseVisualStyleBackColor = true;
+            this.PotentiometerButton.Click += new System.EventHandler(this.PotentiometerButton_Click);
+            // 
             // LearningModules
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(641, 405);
+            this.Controls.Add(this.PotentiometerButton);
+            this.Controls.Add(this.SeriesResistors);
             this.Controls.Add(this.Ohms);
             this.Controls.Add(this.PowLaws);
             this.Controls.Add(this.ParraResistors);
@@ -107,5 +131,7 @@ namespace GUI_for_Project
         private System.Windows.Forms.Button ParraResistors;
         private System.Windows.Forms.Button PowLaws;
         private System.Windows.Forms.Button Ohms;
+        private System.Windows.Forms.Button SeriesResistors;
+        private System.Windows.Forms.Button PotentiometerButton;
     }
 }

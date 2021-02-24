@@ -26,14 +26,17 @@ namespace GUI_for_Project
             numRows = ComponentList.RowCount;
             numColls = ComponentList.ColumnCount;
             MiddleCollumn = numColls / 2;
-            EMFValue = 12;
-            Resistance = 10;
+            EMFValue = SettingsVariables.EMFDefaultValue;
+            Resistance = SettingsVariables.ResistanceDefaultValue;
             GraphMode = 1;
             MainCircuit = new Circuit('v', EMFValue, 0, Resistance);
             TypeMOde = "Voltage";
             GraphTypeControl.SelectedIndex = 0;
-            VariableResistance.Value = 10;
-            VariableEMF.Value = 12;
+            VariableResistance.Value = Convert.ToInt32(Resistance);
+            VariableEMF.Value = Convert.ToInt32(EMFValue);
+            VariableEMF.BackColor = SettingsVariables.ControlBackgroundColour;
+            VariableResistance.BackColor = SettingsVariables.ControlBackgroundColour;
+            PowerLawDigram.Series[0].MarkerColor = SettingsVariables.ControlBackgroundColour;
             DrawCircuit();
         }
         public void CalculatePower()

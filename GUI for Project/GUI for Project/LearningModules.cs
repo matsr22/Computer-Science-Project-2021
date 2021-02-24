@@ -40,5 +40,19 @@ namespace GUI_for_Project
             OhmsLawDemo.ShowDialog();
             Close();
         }
+
+        private void SeriesResistors_Click(object sender, EventArgs e)
+        {
+            Hide();
+            ComponentsInSeries SeriesDemo = new ComponentsInSeries();
+            SeriesDemo.ShowDialog();
+        }
+
+        private void PotentiometerButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            Slide_Potentiometer potentiometer = new Slide_Potentiometer();
+            potentiometer.ShowDialog();
+        }
     }
 }

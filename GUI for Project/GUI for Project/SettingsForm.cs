@@ -17,15 +17,19 @@ namespace GUI_for_Project
     {
         public SettingsForm()
         {
-            InitializeComponent();          
+            InitializeComponent();
+            UpdateTextBoxes();
+
+        }
+        public void UpdateTextBoxes()
+        {
             MaxValTextBox.Text = SettingsVariables.SliderMaxValue.ToString();
             MinValTextBox.Text = SettingsVariables.SliderMinValue.ToString();
             StepValTextBox.Text = SettingsVariables.SliderStepValue.ToString();
             InitalEMFTextBox.Text = SettingsVariables.EMFDefaultValue.ToString();
             InitalResistanceVal.Text = SettingsVariables.ResistanceDefaultValue.ToString();
-            ColourTextBox.Text = SettingsVariables.ControlBackgroundColour;
+            ColourTextBox.Text = ColorTranslator.ToHtml(SettingsVariables.ControlBackgroundColour);
         }
-
         private void MaxValinfo_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This controls the maximum value of data sliders found in some learning modules");
@@ -70,7 +74,7 @@ namespace GUI_for_Project
                 SettingsVariables.SliderStepValue = Convert.ToInt32(StepValTextBox.Text);
                 SettingsVariables.EMFDefaultValue = Convert.ToDouble(InitalEMFTextBox.Text);
                 SettingsVariables.ResistanceDefaultValue = Convert.ToDouble(InitalResistanceVal.Text);
-                SettingsVariables.ControlBackgroundColour = ColourTextBox.Text;
+                SettingsVariables.ControlBackgroundColour = ColorTranslator.FromHtml(ColourTextBox.Text);
             }
             catch (Exception)
             {
@@ -158,7 +162,7 @@ namespace GUI_for_Project
             SettingsVariables.SliderStepValue = Convert.ToInt32(ToBeLoaded[2]);
             SettingsVariables.EMFDefaultValue = Convert.ToDouble(ToBeLoaded[3]);
             SettingsVariables.ResistanceDefaultValue = Convert.ToDouble(ToBeLoaded[4]);
-            SettingsVariables.ControlBackgroundColour = ToBeLoaded[5];
+            SettingsVariables.ControlBackgroundColour = ColorTranslator.FromHtml(ToBeLoaded[5]);
         }
 
         private void SaveFileButton_Click(object sender, EventArgs e)
@@ -169,6 +173,17 @@ namespace GUI_for_Project
         private void LoadSettingsFile_Click(object sender, EventArgs e)
         {
             LoadSettingsFromListT(OpenStringFromFile());
+            UpdateTextBoxes();
+
+        }
+
+        private void SystemWideUnits_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string SelectedItem = SystemWideUnits.SelectedItem.ToString();
+            if (SelectedItem == "Imperial")
+            {
+                throw new BrainNotFoundException();
+            }
         }
     }
     static class SettingsVariables
@@ -178,6 +193,10 @@ namespace GUI_for_Project
         public static int SliderStepValue;
         public static double EMFDefaultValue;
         public static double ResistanceDefaultValue;
-        public static string ControlBackgroundColour;
+        public static Color ControlBackgroundColour;
+    }
+    public class BrainNotFoundException : Exception
+    {
+        public BrainNotFoundException() { }
     }
 }

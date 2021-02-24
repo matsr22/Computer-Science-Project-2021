@@ -9,14 +9,14 @@ using Physics_Engine;
 
 namespace GUI_for_Project
 {
-    public partial class ComponentsInParrallel : BaseCircuitGUI
+    public partial class ComponentsInSeries : GUI_for_Project.BaseCircuitGUI
     {
         protected double CurrentResistance;
         protected double SumResistance;
         protected double SumCurrent;
-        protected double CurrentPerBranch;
+        protected double VoltagePerComponent;
         protected double Voltage;
-        public ComponentsInParrallel()
+        public ComponentsInSeries()
         {
             InitializeComponent();
             WindowState = FormWindowState.Maximized;
@@ -30,14 +30,14 @@ namespace GUI_for_Project
             MainCircuit = new Circuit('v', Voltage, 0, CurrentResistance);
             panel1.BackColor = SettingsVariables.ControlBackgroundColour;
             panel2.BackColor = SettingsVariables.ControlBackgroundColour;
-            
-            SingleResistorLabelValues();
+            UpdatePointers();
+
             DrawCircuit();
         }
         public override void UpdateDimensions()
         {
-            ComponentList.RowCount = MainCircuit.Main.ysize +1;// The Plus bits on here control the vertical and horizontal padding
-            ComponentList.ColumnCount = MainCircuit.Main.xsize+2;
+            ComponentList.RowCount = MainCircuit.Main.ysize + 1;// The Plus bits on here control the vertical and horizontal padding
+            ComponentList.ColumnCount = MainCircuit.Main.xsize + 2;
             numRows = ComponentList.RowCount;
             numColls = ComponentList.ColumnCount;
             MiddleCollumn = numColls / 2;
@@ -47,7 +47,7 @@ namespace GUI_for_Project
 
         private void EditResistance_Click(object sender, EventArgs e)
         {
-            
+
             try
             {
                 CurrentResistance = Convert.ToDouble(UserResistanceValue.Text);
@@ -56,7 +56,7 @@ namespace GUI_for_Project
                 RefreshDiagram();
                 UpdatePointers();
             }
-            catch(FormatException)
+            catch (FormatException)
             {
                 UserResistanceValue.Text = "";
                 MessageBox.Show("Please enter a resistance Value without units (Value is in ohms)");
@@ -68,11 +68,7 @@ namespace GUI_for_Project
         private void AddC_Click(object sender, EventArgs e)
         {
             GeneralComponent ComponentToBeInsertedAt = MainCircuit.Main.GetCopyOfSubList()[0];
-            if(ComponentToBeInsertedAt.GetType() != 'b')
-            {
-                ComponentToBeInsertedAt = ComponentToBeInsertedAt.GetCopyOfSubList()[0];
-            }
-            MainCircuit.Main.ComponentSearch(ComponentToBeInsertedAt.GetName(), "Insert", new string[] { CurrentResistance.ToString(),"p" });
+            MainCircuit.Main.ComponentSearch(ComponentToBeInsertedAt.GetName(), "Insert", new string[] { CurrentResistance.ToString(), "s" });
             MainCircuit.Main.CalculateResistance();
             RefreshDiagram();
             UpdatePointers();
@@ -80,42 +76,29 @@ namespace GUI_for_Project
 
         private void RemoveC_Click(object sender, EventArgs e)
         {
-            GeneralComponent ParraComponentList  = MainCircuit.Main.GetCopyOfSubList()[0];
-            if (ParraComponentList.GetType() != 'b')
+            GeneralComponent ParraComponentList = MainCircuit.Main;
+            if (ParraComponentList.GetCopyOfSubList().Count != 1)
             {
                 ParraComponentList.RemoveComponent(ParraComponentList.GetCopyOfSubList()[0]);
-                RefreshDiagram();
             }
+            MainCircuit.Main.CalculateResistance();
+            RefreshDiagram();
             UpdatePointers();
+
         }
         public void UpdatePointers()
         {
-            GeneralComponent ParraComponentList = MainCircuit.Main.GetCopyOfSubList()[0];
-            if (ParraComponentList.GetType() != 'b') 
-            {
-                SumResistance = ParraComponentList.GetResistance();
-                CurrentPerBranch = ParraComponentList.GetCopyOfSubList()[0].GetCurrent();
-                SumCurrent = ParraComponentList.GetCurrent();
-                UpdateLabels();
-            }
-            else
-            {
-                SingleResistorLabelValues();
-            }
-
+            GeneralComponent ParraComponentList = MainCircuit.Main;        
+            SumResistance = ParraComponentList.GetResistance();
+            VoltagePerComponent = ParraComponentList.GetCopyOfSubList()[0].GetVoltage();
+            SumCurrent = ParraComponentList.GetCurrent();
+            UpdateLabels();
         }
         public void UpdateLabels()
         {
             TotalCurrentLabel.Text = PrefixDouble(SumCurrent, 'A');
             ResistanceTotalLabel.Text = PrefixDouble(SumResistance, 'Ω');
-            BranchCurrent.Text = PrefixDouble(CurrentPerBranch, 'A');
-        }
-        public void SingleResistorLabelValues()
-        {
-            SumResistance = MainCircuit.Main.GetResistance();
-            CurrentPerBranch = Voltage / SumResistance;
-            SumCurrent = MainCircuit.Main.GetCurrent();
-            UpdateLabels();
+            SubVoltageValue.Text = PrefixDouble(VoltagePerComponent, 'V');
         }
 
     }

@@ -21,14 +21,23 @@ namespace GUI_for_Project
 
         private void OhmsLaw_Load(object sender, EventArgs e)
         {
-            Voltage = 12;// Might change the starting values to be system wide
-            Resistance = 5;
+            Voltage = SettingsVariables.EMFDefaultValue;// Might change the starting values to be system wide
+            Resistance = SettingsVariables.ResistanceDefaultValue;
             Current = Voltage / Resistance;
             MainCircuit = new Circuit('v', Voltage, 0, Resistance);
             VoltageSlider.Value = Convert.ToInt32(Voltage);
             ResistanceSlider.Value = Convert.ToInt32(Resistance);
             OhmsChart.ChartAreas[0].AxisX.Title = "Voltage(V)";
             OhmsChart.ChartAreas[0].AxisY.Title = "Current(A)";
+            VoltageSlider.Minimum = SettingsVariables.SliderMinValue;
+            VoltageSlider.Maximum = SettingsVariables.SliderMaxValue;
+            VoltageSlider.TickFrequency = SettingsVariables.SliderStepValue;
+            VoltageSlider.BackColor = SettingsVariables.ControlBackgroundColour;
+            ResistanceSlider.Minimum = SettingsVariables.SliderMinValue;
+            ResistanceSlider.Maximum = SettingsVariables.SliderMaxValue;
+            ResistanceSlider.TickFrequency = SettingsVariables.SliderStepValue;
+            ResistanceSlider.BackColor = SettingsVariables.ControlBackgroundColour;
+            OhmsChart.Series[0].MarkerColor = SettingsVariables.ControlBackgroundColour;       
             DrawCircuit();
         }
 

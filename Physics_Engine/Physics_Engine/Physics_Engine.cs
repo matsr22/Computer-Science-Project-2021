@@ -25,6 +25,12 @@ namespace Physics_Engine
             NewBasicComponent.AssignResistance(resistance);// Assigns the resistance the user has given
             return NewBasicComponent;
         }
+        public static void ResetGolobals()// Resets stuff after a Form is closed
+        {
+            ResistorNum = 1;
+            ParralellNum = 1;
+            SeriesNum = 1;
+        }
     }
 
     public class Circuit
@@ -45,7 +51,7 @@ namespace Physics_Engine
             emfValue = valueofPsource;
             RunVoltageCalcs();
         }
-        public void RunVoltageCalcs()
+        public void RunVoltageCalcs()// Calculates all stuff in the circuit 
         {
             if (Type == 'v')
             {
@@ -177,7 +183,7 @@ namespace Physics_Engine
         public void RemoveComponent(GeneralComponent component)
         {
             ComponentList.Remove(component);
-            if (ComponentList.Count == 1)
+            if (ComponentList.Count == 1&& name != "Main")
             {
                 GeneralComponent CarryComponent = ComponentList[0];
                 Type = 'b';

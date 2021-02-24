@@ -26,6 +26,7 @@ namespace GUI_for_Project
                 PrefixForShowing[i] = PrefixForShowing[i] + UnitPrefix;
             }
             UnitListBox.DataSource = PrefixForShowing;
+            InstructionLabel.BackColor = SettingsVariables.ControlBackgroundColour;
         }
 
         private void InputBox_KeyDown(object sender, KeyEventArgs e)
