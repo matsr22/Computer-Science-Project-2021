@@ -31,7 +31,6 @@
             this.ReturnToPreviousScreen = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
             this.CustomBuilder = new System.Windows.Forms.Button();
-            this.OpenFile = new System.Windows.Forms.Button();
             this.OpenLearningModule = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -57,23 +56,13 @@
             // 
             // CustomBuilder
             // 
-            this.CustomBuilder.Location = new System.Drawing.Point(505, 182);
+            this.CustomBuilder.Location = new System.Drawing.Point(293, 182);
             this.CustomBuilder.Name = "CustomBuilder";
             this.CustomBuilder.Size = new System.Drawing.Size(164, 62);
             this.CustomBuilder.TabIndex = 2;
             this.CustomBuilder.Text = "Custom Circuit Builder";
             this.CustomBuilder.UseVisualStyleBackColor = true;
             this.CustomBuilder.Click += new System.EventHandler(this.CustomBuilder_Click);
-            // 
-            // OpenFile
-            // 
-            this.OpenFile.Location = new System.Drawing.Point(302, 182);
-            this.OpenFile.Name = "OpenFile";
-            this.OpenFile.Size = new System.Drawing.Size(146, 62);
-            this.OpenFile.TabIndex = 3;
-            this.OpenFile.Text = "OpenFile";
-            this.OpenFile.UseVisualStyleBackColor = true;
-            this.OpenFile.Click += new System.EventHandler(this.OpenFile_Click);
             // 
             // OpenLearningModule
             // 
@@ -89,14 +78,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(735, 450);
             this.Controls.Add(this.OpenLearningModule);
-            this.Controls.Add(this.OpenFile);
             this.Controls.Add(this.CustomBuilder);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.ReturnToPreviousScreen);
             this.Name = "StudentPage";
-            this.Text = "Form1";
+            this.Text = "Student Page";
             this.ResumeLayout(false);
 
         }
@@ -106,7 +94,6 @@
         private System.Windows.Forms.Button ReturnToPreviousScreen;
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Button CustomBuilder;
-        private System.Windows.Forms.Button OpenFile;
         private System.Windows.Forms.Button OpenLearningModule;
     }
 }

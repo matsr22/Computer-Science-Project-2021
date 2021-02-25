@@ -46,6 +46,7 @@ namespace GUI_for_Project
             this.Exit.TabIndex = 3;
             this.Exit.Text = "Exit";
             this.Exit.UseVisualStyleBackColor = true;
+            this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // ReturnToPreviousScreen
             // 
@@ -55,6 +56,7 @@ namespace GUI_for_Project
             this.ReturnToPreviousScreen.TabIndex = 2;
             this.ReturnToPreviousScreen.Text = "Return";
             this.ReturnToPreviousScreen.UseVisualStyleBackColor = true;
+            this.ReturnToPreviousScreen.Click += new System.EventHandler(this.ReturnToPreviousScreen_Click);
             // 
             // ParraResistors
             // 

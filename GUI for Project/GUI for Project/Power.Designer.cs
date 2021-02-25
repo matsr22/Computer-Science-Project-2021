@@ -44,6 +44,7 @@ namespace GUI_for_Project
             this.VariableEMF = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.VariableResistance = new System.Windows.Forms.TrackBar();
+            this.ReturnButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PowerLawDigram)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariableEMF)).BeginInit();
@@ -72,6 +73,7 @@ namespace GUI_for_Project
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ReturnButton);
             this.panel1.Controls.Add(this.GraphTypeControl);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.PlotGraphPoint);
@@ -94,7 +96,7 @@ namespace GUI_for_Project
             this.GraphTypeControl.Items.AddRange(new object[] {
             "Power - Y, EMFValue - X",
             "Power - Y, EMFValue^2 - X"});
-            this.GraphTypeControl.Location = new System.Drawing.Point(132, 226);
+            this.GraphTypeControl.Location = new System.Drawing.Point(132, 235);
             this.GraphTypeControl.Name = "GraphTypeControl";
             this.GraphTypeControl.Size = new System.Drawing.Size(158, 17);
             this.GraphTypeControl.TabIndex = 19;
@@ -111,9 +113,9 @@ namespace GUI_for_Project
             // 
             // PlotGraphPoint
             // 
-            this.PlotGraphPoint.Location = new System.Drawing.Point(165, 191);
+            this.PlotGraphPoint.Location = new System.Drawing.Point(132, 191);
             this.PlotGraphPoint.Name = "PlotGraphPoint";
-            this.PlotGraphPoint.Size = new System.Drawing.Size(112, 31);
+            this.PlotGraphPoint.Size = new System.Drawing.Size(94, 31);
             this.PlotGraphPoint.TabIndex = 17;
             this.PlotGraphPoint.Text = "Plot Graph Point";
             this.PlotGraphPoint.UseVisualStyleBackColor = true;
@@ -186,6 +188,16 @@ namespace GUI_for_Project
             this.VariableResistance.Value = 1;
             this.VariableResistance.ValueChanged += new System.EventHandler(this.VariableResistance_ValueChanged);
             // 
+            // ReturnButton
+            // 
+            this.ReturnButton.Location = new System.Drawing.Point(233, 191);
+            this.ReturnButton.Name = "ReturnButton";
+            this.ReturnButton.Size = new System.Drawing.Size(57, 31);
+            this.ReturnButton.TabIndex = 20;
+            this.ReturnButton.Text = "Return";
+            this.ReturnButton.UseVisualStyleBackColor = true;
+            this.ReturnButton.Click += new System.EventHandler(this.ReturnButton_Click);
+            // 
             // Power
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -193,6 +205,7 @@ namespace GUI_for_Project
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.PowerLawDigram);
             this.Name = "Power";
+            this.Text = "Power Demo";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Power_FormClosed);
             this.Load += new System.EventHandler(this.Power_Load);
             this.Controls.SetChildIndex(this.PowerLawDigram, 0);
@@ -219,5 +232,6 @@ namespace GUI_for_Project
         private System.Windows.Forms.TrackBar VariableResistance;
         private System.Windows.Forms.ListBox GraphTypeControl;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ReturnButton;
     }
 }

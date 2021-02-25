@@ -54,5 +54,17 @@ namespace GUI_for_Project
             Slide_Potentiometer potentiometer = new Slide_Potentiometer();
             potentiometer.ShowDialog();
         }
+
+        private void ReturnToPreviousScreen_Click(object sender, EventArgs e)
+        {
+            Hide();
+            StudentPage HomePage = new StudentPage();
+            HomePage.ShowDialog();
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
     }
 }

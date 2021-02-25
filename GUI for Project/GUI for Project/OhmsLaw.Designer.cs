@@ -29,11 +29,14 @@ namespace GUI_for_Project
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.OhmsChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BackButton = new System.Windows.Forms.Button();
+            this.ClearGraph = new System.Windows.Forms.Button();
+            this.GraphPlot = new System.Windows.Forms.Button();
             this.CurrentLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ResistanceLabel = new System.Windows.Forms.Label();
@@ -42,8 +45,6 @@ namespace GUI_for_Project
             this.label1 = new System.Windows.Forms.Label();
             this.ResistanceSlider = new System.Windows.Forms.TrackBar();
             this.VoltageSlider = new System.Windows.Forms.TrackBar();
-            this.GraphPlot = new System.Windows.Forms.Button();
-            this.ClearGraph = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.OhmsChart)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ResistanceSlider)).BeginInit();
@@ -54,24 +55,25 @@ namespace GUI_for_Project
             // 
             this.OhmsChart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            chartArea3.Name = "PowerChartArea";
-            this.OhmsChart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.OhmsChart.Legends.Add(legend3);
+            chartArea1.Name = "PowerChartArea";
+            this.OhmsChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.OhmsChart.Legends.Add(legend1);
             this.OhmsChart.Location = new System.Drawing.Point(22, 333);
             this.OhmsChart.Name = "OhmsChart";
-            series3.ChartArea = "PowerChartArea";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series3.IsVisibleInLegend = false;
-            series3.Legend = "Legend1";
-            series3.Name = "PowerSeries";
-            this.OhmsChart.Series.Add(series3);
+            series1.ChartArea = "PowerChartArea";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series1.IsVisibleInLegend = false;
+            series1.Legend = "Legend1";
+            series1.Name = "PowerSeries";
+            this.OhmsChart.Series.Add(series1);
             this.OhmsChart.Size = new System.Drawing.Size(290, 169);
             this.OhmsChart.TabIndex = 11;
             this.OhmsChart.Text = "OhmsChart";
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.BackButton);
             this.panel1.Controls.Add(this.ClearGraph);
             this.panel1.Controls.Add(this.GraphPlot);
             this.panel1.Controls.Add(this.CurrentLabel);
@@ -84,8 +86,38 @@ namespace GUI_for_Project
             this.panel1.Controls.Add(this.VoltageSlider);
             this.panel1.Location = new System.Drawing.Point(32, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(248, 315);
+            this.panel1.Size = new System.Drawing.Size(280, 315);
             this.panel1.TabIndex = 12;
+            // 
+            // BackButton
+            // 
+            this.BackButton.Location = new System.Drawing.Point(188, 266);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(74, 33);
+            this.BackButton.TabIndex = 20;
+            this.BackButton.Text = "Return";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
+            // ClearGraph
+            // 
+            this.ClearGraph.Location = new System.Drawing.Point(98, 266);
+            this.ClearGraph.Name = "ClearGraph";
+            this.ClearGraph.Size = new System.Drawing.Size(83, 33);
+            this.ClearGraph.TabIndex = 19;
+            this.ClearGraph.Text = "Clear Graph";
+            this.ClearGraph.UseVisualStyleBackColor = true;
+            this.ClearGraph.Click += new System.EventHandler(this.ClearGraph_Click);
+            // 
+            // GraphPlot
+            // 
+            this.GraphPlot.Location = new System.Drawing.Point(11, 266);
+            this.GraphPlot.Name = "GraphPlot";
+            this.GraphPlot.Size = new System.Drawing.Size(81, 33);
+            this.GraphPlot.TabIndex = 18;
+            this.GraphPlot.Text = "Plot Point";
+            this.GraphPlot.UseVisualStyleBackColor = true;
+            this.GraphPlot.Click += new System.EventHandler(this.GraphPlot_Click);
             // 
             // CurrentLabel
             // 
@@ -160,26 +192,6 @@ namespace GUI_for_Project
             this.VoltageSlider.Value = 1;
             this.VoltageSlider.ValueChanged += new System.EventHandler(this.VoltageSlider_ValueChanged);
             // 
-            // GraphPlot
-            // 
-            this.GraphPlot.Location = new System.Drawing.Point(11, 266);
-            this.GraphPlot.Name = "GraphPlot";
-            this.GraphPlot.Size = new System.Drawing.Size(96, 33);
-            this.GraphPlot.TabIndex = 18;
-            this.GraphPlot.Text = "Plot Point";
-            this.GraphPlot.UseVisualStyleBackColor = true;
-            this.GraphPlot.Click += new System.EventHandler(this.GraphPlot_Click);
-            // 
-            // ClearGraph
-            // 
-            this.ClearGraph.Location = new System.Drawing.Point(123, 266);
-            this.ClearGraph.Name = "ClearGraph";
-            this.ClearGraph.Size = new System.Drawing.Size(97, 33);
-            this.ClearGraph.TabIndex = 19;
-            this.ClearGraph.Text = "Clear Graph";
-            this.ClearGraph.UseVisualStyleBackColor = true;
-            this.ClearGraph.Click += new System.EventHandler(this.ClearGraph_Click);
-            // 
             // OhmsLaw
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,5 +225,6 @@ namespace GUI_for_Project
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TrackBar ResistanceSlider;
         private System.Windows.Forms.TrackBar VoltageSlider;
+        private System.Windows.Forms.Button BackButton;
     }
 }

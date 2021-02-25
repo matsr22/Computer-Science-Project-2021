@@ -58,6 +58,7 @@ namespace GUI_for_Project
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.HelpButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Title
@@ -325,11 +326,22 @@ namespace GUI_for_Project
             this.label9.TabIndex = 28;
             this.label9.Text = "(RGB CODE)";
             // 
+            // HelpButton
+            // 
+            this.HelpButton.Location = new System.Drawing.Point(701, 333);
+            this.HelpButton.Name = "HelpButton";
+            this.HelpButton.Size = new System.Drawing.Size(97, 64);
+            this.HelpButton.TabIndex = 29;
+            this.HelpButton.Text = "Help";
+            this.HelpButton.UseVisualStyleBackColor = true;
+            this.HelpButton.Click += new System.EventHandler(this.HelpButton_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 411);
+            this.Controls.Add(this.HelpButton);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -397,5 +409,6 @@ namespace GUI_for_Project
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button HelpButton;
     }
 }

@@ -36,7 +36,6 @@ namespace GUI_for_Project
             VariableEMF.Value = Convert.ToInt32(EMFValue);
             VariableEMF.BackColor = SettingsVariables.ControlBackgroundColour;
             VariableResistance.BackColor = SettingsVariables.ControlBackgroundColour;
-            PowerLawDigram.Series[0].MarkerColor = SettingsVariables.ControlBackgroundColour;
             DrawCircuit();
         }
         public void CalculatePower()
@@ -134,6 +133,14 @@ namespace GUI_for_Project
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void ReturnButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            LearningModules modules = new LearningModules();
+            modules.ShowDialog();
+            Close();
         }
     }
 }

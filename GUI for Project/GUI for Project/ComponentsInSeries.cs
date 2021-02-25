@@ -101,5 +101,12 @@ namespace GUI_for_Project
             SubVoltageValue.Text = PrefixDouble(VoltagePerComponent, 'V');
         }
 
+        private void ReturnButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            LearningModules modules = new LearningModules();
+            modules.ShowDialog();
+            Close();
+        }
     }
 }

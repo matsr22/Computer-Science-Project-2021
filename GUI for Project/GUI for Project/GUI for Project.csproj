@@ -80,6 +80,12 @@
     <Compile Include="CustomCircuitBuilder.Designer.cs">
       <DependentUpon>CustomCircuitBuilder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Help Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help Form.Designer.cs">
+      <DependentUpon>Help Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Slide Potentiometer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,12 +128,6 @@
     <Compile Include="StudentPage.Designer.cs">
       <DependentUpon>StudentPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="TeacherPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TeacherPage.Designer.cs">
-      <DependentUpon>TeacherPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BaseCircuitGUI.resx">
@@ -144,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomCircuitBuilder.resx">
       <DependentUpon>CustomCircuitBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Help Form.resx">
+      <DependentUpon>Help Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LearningModules.resx">
       <DependentUpon>LearningModules.cs</DependentUpon>
@@ -171,12 +174,10 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="StudentPage.resx">
       <DependentUpon>StudentPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TeacherPage.resx">
-      <DependentUpon>TeacherPage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -190,6 +191,60 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Across.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\BottomRightLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Cell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\CrossRoads.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\LeftBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\PotentiometerDiagram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\PotentometerLine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Resistor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ResistorIntRes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\RightBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Testing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\TopLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\TopLeftBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\TopRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\TopRightBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\TopRightLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\White.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

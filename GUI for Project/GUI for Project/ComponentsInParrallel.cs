@@ -118,5 +118,12 @@ namespace GUI_for_Project
             UpdateLabels();
         }
 
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            LearningModules modules = new LearningModules();
+            modules.ShowDialog();
+            Close();
+        }
     }
 }

@@ -74,8 +74,11 @@ namespace GUI_for_Project
                         RefreshDiagram();
                         break;
                     case "Remove Resistor":
-                        MainCircuit.Main.ComponentSearch(SenderPicture.AssosiatedComponent.GetName(), "Remove");
-                        RefreshDiagram();
+                        if(!(MainCircuit.Main.GetCopyOfSubList().Count == 1 || (MainCircuit.Main.GetCopyOfSubList().Count == 2 && MainCircuit.Main.FindComponentFromName("IntRes")!= null&&SenderPicture.AssosiatedComponent.GetName() != "IntRes")))
+                        {
+                            MainCircuit.Main.ComponentSearch(SenderPicture.AssosiatedComponent.GetName(), "Remove");
+                            RefreshDiagram();
+                        }
                         break;
                     case "Current Probe":
                         CurrentProbeTarget = SenderPicture.AssosiatedComponent;
@@ -122,15 +125,15 @@ namespace GUI_for_Project
             UpdateCurrentProbeText();
             UpdateVoltageTargetText();
         }
-        public override void AddPicture(string path, int x, int y)
+        public override void AddPicture(Image image, int x, int y)
         {
-            base.AddPicture(path, x, y);
+            base.AddPicture(image, x, y);
             ComponentList.Controls[x * numRows + y].Click += new EventHandler(ComponentClick);
         }
-        public override void ModifyComponentImage(string path, string AssignedValue, ref PictureBoxWithReference ImagePictureBox)
+        public override void ModifyComponentImage(Image image, string AssignedValue, ref PictureBoxWithReference ImagePictureBox)
         {
             ImagePictureBox.Controls.Clear();
-            ImagePictureBox.Image = Image.FromFile(path);
+            ImagePictureBox.Image = image;
             ImagePictureBox.Resize -= ImageResizer; // This removes any previous event handler bc for some reason having more than one breaks stuff
             if (AssignedValue != null) // If the Image has data that needs displaying e.g. voltage or current or resistance A label is added to the list of controls of the picture
             {
@@ -165,6 +168,27 @@ namespace GUI_for_Project
         {
             MainCircuit.Main.CalculateResistance();
             RefreshDiagram();
+        }
+
+        private void ReturnButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            StudentPage studentPage = new StudentPage();
+            studentPage.ShowDialog();
+            Close();
+        }
+
+        private void HelpButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            Help_Form HelpPage = new Help_Form("Custom Circuit Builder Help:", "This Program allows you to dynamicly add resistors and measure the affect on the circuit\nSelect the Action You would like to be performed\nThen select the Component you would like it to be performed on\nClicking on the Arms of a Parrallel Component selects the entire parrallel section\nSelecting the EMF Source will allow you to change its value");
+            HelpPage.ShowDialog();
+            Show();
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

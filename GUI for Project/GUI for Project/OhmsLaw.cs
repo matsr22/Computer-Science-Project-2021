@@ -37,7 +37,7 @@ namespace GUI_for_Project
             ResistanceSlider.Maximum = SettingsVariables.SliderMaxValue;
             ResistanceSlider.TickFrequency = SettingsVariables.SliderStepValue;
             ResistanceSlider.BackColor = SettingsVariables.ControlBackgroundColour;
-            OhmsChart.Series[0].MarkerColor = SettingsVariables.ControlBackgroundColour;       
+
             DrawCircuit();
         }
 
@@ -76,6 +76,12 @@ namespace GUI_for_Project
             OhmsChart.Series[0].Points.Clear();
         }
 
-
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            LearningModules GoBack = new LearningModules();
+            GoBack.ShowDialog();
+            Close();
+        }
     }
 }

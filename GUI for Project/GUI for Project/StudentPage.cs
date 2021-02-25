@@ -15,7 +15,6 @@ namespace GUI_for_Project
         public StudentPage()
         {
             InitializeComponent();
-            WindowState = FormWindowState.Maximized;
         }
 
         private void Return(object sender, EventArgs e)

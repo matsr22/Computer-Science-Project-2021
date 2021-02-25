@@ -15,7 +15,6 @@ namespace GUI_for_Project
         public ContentsPage()
         {
             InitializeComponent();
-            WindowState = FormWindowState.Maximized;
         }
 
         private void Settings_Click(object sender, EventArgs e)
@@ -27,13 +26,7 @@ namespace GUI_for_Project
 
         }
 
-        private void GoToTeacher_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Form TeacherPage = new TeacherPage();
-            TeacherPage.ShowDialog();
-            this.Close();
-        }
+
 
         private void GoToStudent_Click(object sender, EventArgs e)
         {
@@ -48,5 +41,9 @@ namespace GUI_for_Project
             Environment.Exit(0);
         }
 
+        private void CreditsButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Creation: Me\nElectronics Advice and stuff:Mike Rose\nGeneral Coding Advice: The Chadish Server(https://discord.gg/rWkAmzMZQN)");
+        }
     }
 }

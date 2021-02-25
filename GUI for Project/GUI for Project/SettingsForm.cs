@@ -185,6 +185,14 @@ namespace GUI_for_Project
                 throw new BrainNotFoundException();
             }
         }
+
+        private void HelpButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            Help_Form help_ = new Help_Form("Settings Help:","These settings control system wide things like colour scheme and other cool things\nYou can Load and Save Settings\nColours are enter in the #RRGGBB Format where each is a hex value corresponding from 0 to 255 amounts");
+            help_.ShowDialog();
+            Show();
+        }
     }
     static class SettingsVariables
     {

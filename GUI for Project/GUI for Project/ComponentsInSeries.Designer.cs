@@ -41,6 +41,7 @@ namespace GUI_for_Project
             this.UserResistanceValue = new System.Windows.Forms.TextBox();
             this.RemoveC = new System.Windows.Forms.Button();
             this.AddC = new System.Windows.Forms.Button();
+            this.ReturnButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -153,15 +154,27 @@ namespace GUI_for_Project
             this.AddC.UseVisualStyleBackColor = true;
             this.AddC.Click += new System.EventHandler(this.AddC_Click);
             // 
+            // ReturnButton
+            // 
+            this.ReturnButton.Location = new System.Drawing.Point(41, 236);
+            this.ReturnButton.Name = "ReturnButton";
+            this.ReturnButton.Size = new System.Drawing.Size(99, 65);
+            this.ReturnButton.TabIndex = 10;
+            this.ReturnButton.Text = "Return";
+            this.ReturnButton.UseVisualStyleBackColor = true;
+            this.ReturnButton.Click += new System.EventHandler(this.ReturnButton_Click);
+            // 
             // ComponentsInSeries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1213, 514);
+            this.Controls.Add(this.ReturnButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "ComponentsInSeries";
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.panel2, 0);
+            this.Controls.SetChildIndex(this.ReturnButton, 0);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -183,5 +196,6 @@ namespace GUI_for_Project
         private System.Windows.Forms.TextBox UserResistanceValue;
         private System.Windows.Forms.Button RemoveC;
         private System.Windows.Forms.Button AddC;
+        private System.Windows.Forms.Button ReturnButton;
     }
 }

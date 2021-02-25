@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Physics_Engine;
+using GUI_for_Project.Properties;
 
 namespace GUI_for_Project
 {
     public partial class BaseCircuitGUI : Form
     {
-        protected string ImageDefaultPath = @"C:\Users\matth\source\repos\matsr22\Computer-Science-Project-2021\GUI for Project\GUI for Project\Images\";// This is where most images will be kept
+        
         protected int numRows;
         protected int numColls;
         protected Circuit MainCircuit;
@@ -44,13 +45,13 @@ namespace GUI_for_Project
             {
                 DrawEMFSource(EMFValue);
                 GeneralComponent InternalResistance = MainCircuit.Main.FindComponentFromName("IntRes");//Finds the internal resistance from the circuit
-                ModifyPicture("ResistorIntRes.png", MiddleCollumn + 1, 0, PrefixDouble(InternalResistance.GetResistance(), 'Ω')).AssosiatedComponent = InternalResistance;//Updates the diagram to include internal resistance
+                ModifyPicture(Resources.ResistorIntRes, MiddleCollumn + 1, 0, PrefixDouble(InternalResistance.GetResistance(), 'Ω')).AssosiatedComponent = InternalResistance;//Updates the diagram to include internal resistance
 
             }
         }
         public virtual void DrawEMFSource(double EMFVal)
         {
-            ModifyPicture("Cell.png", MiddleCollumn, 0, PrefixDouble(EMFVal, MainCircuit.GetTypeOfPsource()));//Adds a Cell in the centre of the image
+            ModifyPicture(Resources.Cell, MiddleCollumn, 0, PrefixDouble(EMFVal, MainCircuit.GetTypeOfPsource()));//Adds a Cell in the centre of the image
         }
         public void ImageResizer(object sender, EventArgs e) // Resizes the text under a component so it is consistant (Dosn't really work as intended)
         {
@@ -91,14 +92,14 @@ namespace GUI_for_Project
         {
             for (int i = StartingX; i < EndingX; i++)
             {
-                ModifyPicture("Across.png", i, StartingY);
+                ModifyPicture(Resources.Across, i, StartingY);
             }
         }
         public void DrawSection(GeneralComponent component, int StartingX, int StartingY)
         {
             if (component.GetType() == 'b')
             {
-                PictureBoxWithReference PictureBoxImage = ModifyPicture("Resistor.png", StartingX, StartingY, PrefixDouble(component.GetResistance(), 'Ω')); // This code may have to be changed if I need to make the resistor into a 2x1 image rather than a 1x1
+                PictureBoxWithReference PictureBoxImage = ModifyPicture(Resources.Resistor, StartingX, StartingY, PrefixDouble(component.GetResistance(), 'Ω')); // This code may have to be changed if I need to make the resistor into a 2x1 image rather than a 1x1
                 PictureBoxImage.AssosiatedComponent = component;
             }
             else if (component.GetType() == 'p')
@@ -108,8 +109,8 @@ namespace GUI_for_Project
                 // Starts From Current position and starts to draw a parrallel component
                 // Draws the bottom line first as if it dosn't, It ovverides TOPRIGHTLEFT
                 DrawBottomLine(StartingX + 1, StartingY, StartingX + component.xsize - 1);
-                ModifyPicture("TopRightLeft.png", StartingX, StartingY).AssosiatedComponent = component;
-                ModifyPicture("TopRightLeft.png", StartingX + component.xsize - 1, StartingY).AssosiatedComponent = component;
+                ModifyPicture(Resources.TopRightLeft, StartingX, StartingY).AssosiatedComponent = component;
+                ModifyPicture(Resources.TopRightLeft, StartingX + component.xsize - 1, StartingY).AssosiatedComponent = component;
 
 
                 DrawSection(ListForDrawing[0], StartingX + 1, StartingY);
@@ -122,19 +123,19 @@ namespace GUI_for_Project
                     {
 
                         StartingY--;//Moves the Y value up
-                        ModifyPicture("Down.png", StartingX, StartingY).AssosiatedComponent = component;//Draws a vertical Straight Line
-                        ModifyPicture("Down.png", StartingX + (component.xsize - 1), StartingY).AssosiatedComponent = component;//Draws the corresponding line on the other side
+                        ModifyPicture(Resources.Down, StartingX, StartingY).AssosiatedComponent = component;//Draws a vertical Straight Line
+                        ModifyPicture(Resources.Down, StartingX + (component.xsize - 1), StartingY).AssosiatedComponent = component;//Draws the corresponding line on the other side
                     }
                     StartingY--;//Itterates the Y one more
                     if (i == ListForDrawing.Count - 1)// If this is the last component in the List, Draw a different joining wire
                     {
-                        ModifyPicture("RightBottom.png", StartingX, StartingY).AssosiatedComponent = component;
-                        ModifyPicture("LeftBottom.png", StartingX + (component.xsize - 1), StartingY).AssosiatedComponent = component;
+                        ModifyPicture(Resources.RightBottom, StartingX, StartingY).AssosiatedComponent = component;
+                        ModifyPicture(Resources.LeftBottom, StartingX + (component.xsize - 1), StartingY).AssosiatedComponent = component;
                     }
                     else
                     {
-                        ModifyPicture("TopRightBottom.png", StartingX, StartingY).AssosiatedComponent = component;//If not then Just branch for the next component
-                        ModifyPicture("TopLeftBottom.png", StartingX + (component.xsize - 1), StartingY).AssosiatedComponent = component;
+                        ModifyPicture(Resources.TopRightBottom, StartingX, StartingY).AssosiatedComponent = component;//If not then Just branch for the next component
+                        ModifyPicture(Resources.TopLeftBottom, StartingX + (component.xsize - 1), StartingY).AssosiatedComponent = component;
                     }
                     DrawBottomLine(StartingX + 1, StartingY, StartingX + component.xsize - 1);
                     DrawSection(ListForDrawing[i], StartingX + 1, StartingY);
@@ -156,10 +157,10 @@ namespace GUI_for_Project
                 }
             }
         }
-        public virtual void ModifyComponentImage(string path, string AssignedValue, ref PictureBoxWithReference ImagePictureBox)// Needs cleaning up as reusing from earlier itterations
+        public virtual void ModifyComponentImage(Image image, string AssignedValue, ref PictureBoxWithReference ImagePictureBox)// Needs cleaning up as reusing from earlier itterations
         {
             ImagePictureBox.Controls.Clear();
-            ImagePictureBox.Image = Image.FromFile(path);
+            ImagePictureBox.Image = image;
             ImagePictureBox.Resize -= ImageResizer; // This removes any previous event handler bc for some reason having more than one breaks stuff
             if (AssignedValue != null) // If the Image has data that needs displaying e.g. voltage or current or resistance A label is added to the list of controls of the picture
             {
@@ -176,23 +177,19 @@ namespace GUI_for_Project
 
 
         }
-        public PictureBoxWithReference ModifyPicture(string path, int x, int y, string value = null)
+        public PictureBoxWithReference ModifyPicture(Image image, int x, int y, string value = null)
         {
             int index = x * numRows + y;
             PictureBoxWithReference PanelToModify = (PictureBoxWithReference)ComponentList.Controls[index];
-            ModifyComponentImage(CreatePath(path), value, ref PanelToModify);
+            ModifyComponentImage(image, value, ref PanelToModify);
             return PanelToModify;
 
 
         }
-        public string CreatePath(string ImagePath)
-        {
-            return ImageDefaultPath + ImagePath;
-        }
-        public virtual void AddPicture(string path, int x, int y)// Adds the blank picture
+        public virtual void AddPicture(Image image, int x, int y)// Adds the blank picture
         {
 
-            ComponentList.Controls.Add(new PictureBoxWithReference() { Image = Image.FromFile(CreatePath(path)), SizeMode = PictureBoxSizeMode.StretchImage, Margin = new Padding(0), Dock = DockStyle.Fill }, x, y);
+            ComponentList.Controls.Add(new PictureBoxWithReference() { Image = image, SizeMode = PictureBoxSizeMode.StretchImage, Margin = new Padding(0), Dock = DockStyle.Fill }, x, y);
 
         }
         public string[] GetUserInput(string Instruction, char UnitPrefix)// This gets User Input, along with the suffix they have chosen 
@@ -206,6 +203,7 @@ namespace GUI_for_Project
                 f2.ShowDialog(this);
                 ToBeReturned = f2.data;
                 SelectedPrefix = f2.ChosenPrefix;
+                f2.Close(); 
                 f2.Dispose();
                 if(ToBeReturned != null)
                 {
@@ -337,7 +335,7 @@ namespace GUI_for_Project
             {
                 for (int y = 0; y < numRows; y++)
                 {
-                    AddPicture("White.png", x, y); // Fills the TableLayoutPanel with blank images
+                    AddPicture(Resources.White, x, y); // Fills the TableLayoutPanel with blank images
                 }
             }
         }
@@ -347,26 +345,26 @@ namespace GUI_for_Project
             {
                 for (int y = 0; y < numRows; y++)
                 {
-                    ModifyPicture("White.png", x, y); // Resets the TableLayoutPanel with blank images
+                    ModifyPicture(Resources.White, x, y); // Resets the TableLayoutPanel with blank images
                 }
             }
             for (int y = 0; y < numRows; y++) // Makes the Vertical Wires
             {
 
-                ModifyPicture("Down.png", 0, y);
-                ModifyPicture("Down.png", numColls - 1, y);
+                ModifyPicture(Resources.Down, 0, y);
+                ModifyPicture(Resources.Down, numColls - 1, y);
             }
 
             for (int x = 0; x < numColls; x++)//Makes the Horizontal Wires
             {
-                ModifyPicture("Across.png", x, 0);
-                ModifyPicture("Across.png", x, numRows - 1);
+                ModifyPicture(Resources.Across, x, 0);
+                ModifyPicture(Resources.Across, x, numRows - 1);
             }
             //Makes the Corners
-            ModifyPicture("RightBottom.png", 0, 0);
-            ModifyPicture("TopRight.png", 0, numRows - 1);
-            ModifyPicture("TopLeft.png", numColls - 1, numRows - 1);
-            ModifyPicture("LeftBottom.png", numColls - 1, 0);
+            ModifyPicture(Resources.RightBottom, 0, 0);
+            ModifyPicture(Resources.TopRight, 0, numRows - 1);
+            ModifyPicture(Resources.TopLeft, numColls - 1, numRows - 1);
+            ModifyPicture(Resources.LeftBottom, numColls - 1, 0);
 
         }
 

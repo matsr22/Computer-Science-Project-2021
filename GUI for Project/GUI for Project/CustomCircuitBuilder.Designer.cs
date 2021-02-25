@@ -38,6 +38,8 @@ namespace GUI_for_Project
             this.label2 = new System.Windows.Forms.Label();
             this.CurrentVal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.ReturnButton = new System.Windows.Forms.Button();
+            this.HelpButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -134,15 +136,40 @@ namespace GUI_for_Project
             this.label1.TabIndex = 15;
             this.label1.Text = "Current Probe Value:";
             // 
+            // ReturnButton
+            // 
+            this.ReturnButton.Location = new System.Drawing.Point(61, 201);
+            this.ReturnButton.Name = "ReturnButton";
+            this.ReturnButton.Size = new System.Drawing.Size(97, 42);
+            this.ReturnButton.TabIndex = 16;
+            this.ReturnButton.Text = "Return";
+            this.ReturnButton.UseVisualStyleBackColor = true;
+            this.ReturnButton.Click += new System.EventHandler(this.ReturnButton_Click);
+            // 
+            // HelpButton
+            // 
+            this.HelpButton.Location = new System.Drawing.Point(61, 250);
+            this.HelpButton.Name = "HelpButton";
+            this.HelpButton.Size = new System.Drawing.Size(97, 42);
+            this.HelpButton.TabIndex = 17;
+            this.HelpButton.Text = "Help";
+            this.HelpButton.UseVisualStyleBackColor = true;
+            this.HelpButton.Click += new System.EventHandler(this.HelpButton_Click);
+            // 
             // CustomCircuitBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1213, 514);
+            this.Controls.Add(this.HelpButton);
+            this.Controls.Add(this.ReturnButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "CustomCircuitBuilder";
+            this.Text = "Custom Circuit Builder";
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.ReturnButton, 0);
+            this.Controls.SetChildIndex(this.HelpButton, 0);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -159,5 +186,7 @@ namespace GUI_for_Project
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label CurrentVal;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button ReturnButton;
+        private System.Windows.Forms.Button HelpButton;
     }
 }

@@ -24,6 +24,7 @@ namespace GUI_for_Project
             TotalResistancePool = SettingsVariables.ResistanceDefaultValue;
             ResistancePercentage = 0.5;
             PotenitometerSlide.Value = 50;
+            PotenitometerSlide.BackColor = SettingsVariables.ControlBackgroundColour;
             
             UpdateEverything();
 
@@ -59,6 +60,10 @@ namespace GUI_for_Project
 
         private void HelpButton_Click(object sender, EventArgs e)
         {
+            Hide();
+            Help_Form HelpBox = new Help_Form("Potentiometer Help:","This program demonstrates potential dividers to create an output voltage different to that of the input. \n Hopefully using this software you can also deduce how a slide potentiometer works");
+            HelpBox.ShowDialog();
+            Show();
 
         }
     }

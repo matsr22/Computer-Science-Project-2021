@@ -41,6 +41,7 @@ namespace GUI_for_Project
             this.UserResistanceValue = new System.Windows.Forms.TextBox();
             this.RemoveC = new System.Windows.Forms.Button();
             this.AddC = new System.Windows.Forms.Button();
+            this.BackButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -153,15 +154,28 @@ namespace GUI_for_Project
             this.AddC.UseVisualStyleBackColor = true;
             this.AddC.Click += new System.EventHandler(this.AddC_Click);
             // 
+            // BackButton
+            // 
+            this.BackButton.Location = new System.Drawing.Point(29, 224);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(87, 64);
+            this.BackButton.TabIndex = 9;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // ComponentsInParrallel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1213, 514);
+            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "ComponentsInParrallel";
+            this.Text = "Parrallel Components Demo";
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.panel2, 0);
+            this.Controls.SetChildIndex(this.BackButton, 0);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -183,5 +197,6 @@ namespace GUI_for_Project
         private System.Windows.Forms.TextBox UserResistanceValue;
         private System.Windows.Forms.Button RemoveC;
         private System.Windows.Forms.Button AddC;
+        private System.Windows.Forms.Button BackButton;
     }
 }
