@@ -60,7 +60,7 @@ namespace GUI_for_Project
             {
                 int height = ToBeResized.Height;
                 int width = ToBeResized.Width;
-                ToBeResized.Controls[0].Height = Convert.ToInt32(height * 0.3);
+                ToBeResized.Controls[0].Height = Convert.ToInt32(height * 0.3);// Scales the label size a bit arbitarily
                 ToBeResized.Controls[0].Width = Convert.ToInt32(width * 0.5);
             }
         }
@@ -99,7 +99,7 @@ namespace GUI_for_Project
         {
             if (component.GetType() == 'b')
             {
-                PictureBoxWithReference PictureBoxImage = ModifyPicture(Resources.Resistor, StartingX, StartingY, PrefixDouble(component.GetResistance(), 'Ω')); // This code may have to be changed if I need to make the resistor into a 2x1 image rather than a 1x1
+                PictureBoxWithReference PictureBoxImage = ModifyPicture(Resources.Resistor, StartingX, StartingY, PrefixDouble(component.GetResistance(), 'Ω')); // This is the bit that draws the resistors based on positions worked out by the parrallel and series bits
                 PictureBoxImage.AssosiatedComponent = component;
             }
             else if (component.GetType() == 'p')
@@ -108,7 +108,7 @@ namespace GUI_for_Project
 
                 // Starts From Current position and starts to draw a parrallel component
                 // Draws the bottom line first as if it dosn't, It ovverides TOPRIGHTLEFT
-                DrawBottomLine(StartingX + 1, StartingY, StartingX + component.xsize - 1);
+                DrawBottomLine(StartingX + 1, StartingY, StartingX + component.xsize - 1);// If this wasn't there there would be gaps 
                 ModifyPicture(Resources.TopRightLeft, StartingX, StartingY).AssosiatedComponent = component;
                 ModifyPicture(Resources.TopRightLeft, StartingX + component.xsize - 1, StartingY).AssosiatedComponent = component;
 
@@ -138,7 +138,7 @@ namespace GUI_for_Project
                         ModifyPicture(Resources.TopLeftBottom, StartingX + (component.xsize - 1), StartingY).AssosiatedComponent = component;
                     }
                     DrawBottomLine(StartingX + 1, StartingY, StartingX + component.xsize - 1);
-                    DrawSection(ListForDrawing[i], StartingX + 1, StartingY);
+                    DrawSection(ListForDrawing[i], StartingX + 1, StartingY);// Goes up the parrallel component and draws the next section
 
                 }
 
@@ -177,7 +177,7 @@ namespace GUI_for_Project
 
 
         }
-        public PictureBoxWithReference ModifyPicture(Image image, int x, int y, string value = null)
+        public PictureBoxWithReference ModifyPicture(Image image, int x, int y, string value = null)// Adds Labels to images, Changes event handlers and changes the image themselves
         {
             int index = x * numRows + y;
             PictureBoxWithReference PanelToModify = (PictureBoxWithReference)ComponentList.Controls[index];
@@ -199,6 +199,7 @@ namespace GUI_for_Project
             bool ValidAnswer = false;
             while (ValidAnswer != true)
             {
+                // I don't really understand the Methods assossiated with a Form so I just used .Close and .Dispose as it worked
                 var f2 = new InputForm(Instruction, UnitPrefix);
                 f2.ShowDialog(this);
                 ToBeReturned = f2.data;
@@ -235,38 +236,37 @@ namespace GUI_for_Project
         }
         public string PrefixDouble(double input, char UnitPrefix)// Adds all the unit prefixes to the right magnitude of double, bit boring probably could have done this with some kind of clever dictionary
         {
-            input = Math.Round(input, 5);
             if (1 <= input && input < 1000)
             {
-                return input.ToString() + UnitPrefix;
+                return Math.Round(input,5).ToString() + UnitPrefix;
             }
             else if (0.001 <= input && input < 1)
             {
-                return (input * 1000).ToString() + "m" + UnitPrefix;
+                return Math.Round((input * 1000),5).ToString() + "m" + UnitPrefix;
             }
             else if (1.0E-6 <= input && input < 0.001)
             {
-                return (input * 1E6).ToString() + "µ" + UnitPrefix;
+                return Math.Round((input * 1E6), 5).ToString() + "µ" + UnitPrefix;
             }
             else if (1.0E-9 <= input && input < 1.0E-6)
             {
-                return (input * 1E9).ToString() + "n" + UnitPrefix;
+                return Math.Round((input * 1E9), 5).ToString() + "n" + UnitPrefix;
             }
             else if (1000 <= input && input < 1E6)
             {
-                return (input / 1000).ToString() + "k" + UnitPrefix;
+                return Math.Round((input / 1000), 5).ToString() + "k" + UnitPrefix;
             }
             else if (1E6 <= input && input < 1E9)
             {
-                return (input / 1E6).ToString() + "M" + UnitPrefix;
+                return Math.Round((input / 1E6), 5).ToString() + "M" + UnitPrefix;
             }
             else if (1E9 <= input && input < 1E12)
             {
-                return (input / 1E9).ToString() + "G" + UnitPrefix;
+                return Math.Round((input / 1E9), 5).ToString() + "G" + UnitPrefix;
             }
             else
             {
-                return (input).ToString("G3") + UnitPrefix;// The G3 Just tells .ToString how this should be Displayed - In this case it is in standard form to 3 sf on mantissa and 2 s.f on exponent
+                return Math.Round((input), 5).ToString("G3") + UnitPrefix;// The G3 Just tells .ToString how this should be Displayed - In this case it is in standard form to 3 sf on mantissa and 2 s.f on exponent
             }
         }
         public string RemovePrefixAndCheckDouble(string input, string prefix)//Scales up the Suffixed value to a double
@@ -305,7 +305,7 @@ namespace GUI_for_Project
                 return null;
             }
         }
-        public string TryToConvertToStandardForm(string Input)//This might be entirely unecessary but whatever
+        public string TryToConvertToStandardForm(string Input)//This might be entirely unecessary because c# might deal with some of this stuff allready but as it isn't called that often I'm fine with it
         {
             Input = Input.ToLower();
             if (Input.Contains("e"))

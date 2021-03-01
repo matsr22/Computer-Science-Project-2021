@@ -43,7 +43,7 @@ namespace GUI_for_Project
 
         private void CreditsButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Creation: Me\nElectronics Advice and stuff:Mike Rose\nGeneral Coding Advice: The Chadish Server(https://discord.gg/rWkAmzMZQN)");
+            MessageBox.Show("Creation: Me\nElectronics Advice and stuff:Mike Rose\nGeneral Coding Advice: Computing Friends");
         }
     }
 }

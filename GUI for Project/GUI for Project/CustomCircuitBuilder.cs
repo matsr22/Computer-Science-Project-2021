@@ -25,7 +25,7 @@ namespace GUI_for_Project
             CreateBasicCircuit();
         }
         #region UIFunction
-        public void CreateBasicCircuit()
+        public void CreateBasicCircuit()// Creates a circuit based on user inputs
         {
             // User Input
             double Voltage = GetUserInputAsDouble("Please Enter the Voltage of the Circuit", 'V');
@@ -37,9 +37,10 @@ namespace GUI_for_Project
 
 
 
-        public void ComponentClick(object sender, EventArgs e)
+        public void ComponentClick(object sender, EventArgs e)// Forwards on the correct action when user clicks a component
         {
             PictureBoxWithReference SenderPicture;
+            // This first bit just gets the correct PictureBoxWithReference as the user can click on the label covering the picture or the picture itself
             if (sender.GetType() == new Label().GetType())
             {
                 SenderPicture = (PictureBoxWithReference)(((Label)sender).Parent);
@@ -49,15 +50,15 @@ namespace GUI_for_Project
                 SenderPicture = (PictureBoxWithReference)sender;
             }
 
-            if (SenderPicture.AssosiatedComponent != null && ClickActions.SelectedItem != null)
+            if (SenderPicture.AssosiatedComponent != null && ClickActions.SelectedItem != null)// Checks the image has a resistor attached
             {
-                switch (ClickActions.SelectedItem.ToString())
+                switch (ClickActions.SelectedItem.ToString())//Switches on the ClickActions Drop Down menu
                 {
 
                     case ("Edit Values"):
                         double value = GetUserInputAsDouble($"What would you like to change the value of {SenderPicture.AssosiatedComponent.GetName()} to ?", 'Ω');
                         SenderPicture.AssosiatedComponent.AssignResistance(value);
-                        Label InternalLabel = ((Label)SenderPicture.Controls[0]);
+                        Label InternalLabel = ((Label)SenderPicture.Controls[0]);// Now Updates the Label to reflect the new value
                         InternalLabel.Text = PrefixDouble(value, 'Ω');
                         RefreshDiagram();
                         break;
@@ -74,14 +75,14 @@ namespace GUI_for_Project
                         RefreshDiagram();
                         break;
                     case "Remove Resistor":
-                        if(!(MainCircuit.Main.GetCopyOfSubList().Count == 1 || (MainCircuit.Main.GetCopyOfSubList().Count == 2 && MainCircuit.Main.FindComponentFromName("IntRes")!= null&&SenderPicture.AssosiatedComponent.GetName() != "IntRes")))
+                        if(!(MainCircuit.Main.GetCopyOfSubList().Count == 1 || (MainCircuit.Main.GetCopyOfSubList().Count == 2 && MainCircuit.Main.FindComponentFromName("IntRes")!= null&&SenderPicture.AssosiatedComponent.GetName() != "IntRes")))// This long if statement checks if the component to be removed is the last in the circuit, if it is, it isn't removed
                         {
                             MainCircuit.Main.ComponentSearch(SenderPicture.AssosiatedComponent.GetName(), "Remove");
                             RefreshDiagram();
                         }
                         break;
                     case "Current Probe":
-                        CurrentProbeTarget = SenderPicture.AssosiatedComponent;
+                        CurrentProbeTarget = SenderPicture.AssosiatedComponent;// Changes the targeted component for Probing
                         UpdateCurrentProbeText();
                         break;
                     case "Voltage Probe":
@@ -93,10 +94,11 @@ namespace GUI_for_Project
                 }
             }
         }
-        public void EditVoltageValue(object sender, EventArgs e)
+        public void EditVoltageValue(object sender, EventArgs e)// Called only when the EMF source is changed 
         {
             double value = GetUserInputAsDouble("What would you like to change the value of the EMF source to?", 'V');
             MainCircuit.AssignEMF(value);
+            //Updates all things that might be changed by changing the VoltageSource
             UpdateCurrentProbeText();
             UpdateVoltageTargetText();
             RefreshDiagram();
@@ -119,6 +121,7 @@ namespace GUI_for_Project
         }
         #endregion
         #region Ovveriden Methods
+        // These are all methods that need to change somehow due to extras implemented
         public override void RunVoltageCalculations()
         {
             base.RunVoltageCalculations();
@@ -128,7 +131,7 @@ namespace GUI_for_Project
         public override void AddPicture(Image image, int x, int y)
         {
             base.AddPicture(image, x, y);
-            ComponentList.Controls[x * numRows + y].Click += new EventHandler(ComponentClick);
+            ComponentList.Controls[x * numRows + y].Click += new EventHandler(ComponentClick);// Adds the functionality on click 
         }
         public override void ModifyComponentImage(Image image, string AssignedValue, ref PictureBoxWithReference ImagePictureBox)
         {
@@ -151,6 +154,7 @@ namespace GUI_for_Project
         public override void DrawEMFSource(double EMFVal)
         {
             base.DrawEMFSource(EMFVal);
+            //Adds Event Handlers to the EMF Source image so its value can be changed at runtime
             ComponentList.Controls[MiddleCollumn * numRows].Click += new EventHandler(EditVoltageValue);
             ComponentList.Controls[MiddleCollumn * numRows].Controls[0].Click += new EventHandler(EditVoltageValue);
         }
@@ -159,12 +163,12 @@ namespace GUI_for_Project
 
         private void Reset_Click(object sender, EventArgs e)
         {
-            ResetPanel();
-            CreateBasicCircuit();
+            ResetPanel();//Clears the Panel
+            CreateBasicCircuit();//Creates a new one in its place
         }
 
 
-        private void RecalculateValues_Click(object sender, EventArgs e)
+        private void RecalculateValues_Click(object sender, EventArgs e)//Shouldn't be necessary as the program should calculate Resistance on its own but is there just in case
         {
             MainCircuit.Main.CalculateResistance();
             RefreshDiagram();
