@@ -1,5 +1,7 @@
 # Computer-Science-Project-2021
-Hello Marker/Teacher/Intrested person
+Hello Marker/Teacher/Interested person
+
+To Find An Executable, go to GUI for Project, Bin, Release
 
 Many of the files in this project are just for GUI navigation and don't contain that much unique content, The Most important files (in decending order of importance) are:
 
