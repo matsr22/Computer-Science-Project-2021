@@ -135,7 +135,7 @@ namespace Physics_Engine
         {
             return voltage;
         }
-        public bool ComponentSearch(string NameOfComponent,  string Action,params string[] Values)
+        public bool ComponentSearch(string NameOfComponent,  string Action,params string[] Values)// Removes and Adds Components after searching for them
         {
             if (NameOfComponent == name)
             {
@@ -180,7 +180,7 @@ namespace Physics_Engine
                 }
             }
         }
-        public void RemoveComponent(GeneralComponent component)
+        public void RemoveComponent(GeneralComponent component)//Removes Component and then checks if it needs to collapse that component into a basic component 
         {
             ComponentList.Remove(component);
             if (ComponentList.Count == 1&& name != "Main")
@@ -263,7 +263,7 @@ namespace Physics_Engine
             ComponentList.Add(Component);//Adds to the current list
             CalculateResistance();//Recalculates resistance
         }
-        public void CalculateResistance()
+        public void CalculateResistance()//Also Assigns size
         {
             if (Type == 's')
             {

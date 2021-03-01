@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="GUI_for_Project.BaseCircuitGUI" Collapsed="true">
+    <Position X="3.25" Y="11.25" Width="3" />
+    <Members>
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CSAABCACACAQAgEQAAGAEEAOAIAAAAoIAAAAgAEICQA=</HashCode>
+      <FileName>BaseCircuitGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.PictureBoxWithReference">
+    <Position X="7.75" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseCircuitGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physics_Engine.PhysicsGlobals">
+    <Position X="8.5" Y="2.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAQAAAAAAAAAABAAAAAAAAAQIAAAA=</HashCode>
+      <FileName>C:\Users\matth\Source\Repos\matsr22\Computer-Science-Project-2021\Physics_Engine\Physics_Engine\Physics_Engine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physics_Engine.Circuit">
+    <Position X="8" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAQAAAAAAAEAAAAAAgAAAAQAARAABAAAAAA=</HashCode>
+      <FileName>C:\Users\matth\Source\Repos\matsr22\Computer-Science-Project-2021\Physics_Engine\Physics_Engine\Physics_Engine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Physics_Engine.GeneralComponent">
+    <Position X="4" Y="1.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AgjAhAAAEAAIBAAAACAAEIAIgAAEggUEAQgAACAABAg=</HashCode>
+      <FileName>C:\Users\matth\Source\Repos\matsr22\Computer-Science-Project-2021\Physics_Engine\Physics_Engine\Physics_Engine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.ComponentsInParrallel" Collapsed="true">
+    <Position X="0.5" Y="12.75" Width="2" />
+    <Members>
+      <Field Name="AddC" Hidden="true" />
+      <Field Name="BackButton" Hidden="true" />
+      <Field Name="BranchCurrent" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="EditResistance" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label3" Hidden="true" />
+      <Field Name="label4" Hidden="true" />
+      <Field Name="panel1" Hidden="true" />
+      <Field Name="panel2" Hidden="true" />
+      <Field Name="RemoveC" Hidden="true" />
+      <Field Name="ResistanceTotalLabel" Hidden="true" />
+      <Field Name="TotalCurrentLabel" Hidden="true" />
+      <Field Name="UserResistanceValue" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>YSAAEQACgCAAMBAAgQDBAAACQAAAMAAAAAACASAAABA=</HashCode>
+      <FileName>ComponentsInParrallel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.ComponentsInSeries" Collapsed="true">
+    <Position X="2.75" Y="12.75" Width="1.75" />
+    <Members>
+      <Field Name="AddC" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="EditResistance" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label3" Hidden="true" />
+      <Field Name="label4" Hidden="true" />
+      <Field Name="panel1" Hidden="true" />
+      <Field Name="panel2" Hidden="true" />
+      <Field Name="RemoveC" Hidden="true" />
+      <Field Name="ResistanceTotalLabel" Hidden="true" />
+      <Field Name="ReturnButton" Hidden="true" />
+      <Field Name="SubVoltageValue" Hidden="true" />
+      <Field Name="TotalCurrentLabel" Hidden="true" />
+      <Field Name="UserResistanceValue" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>cCBEEAACgCAAMBAAgQDAAAACQAAAMAAAAAACAQAAABA=</HashCode>
+      <FileName>ComponentsInSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.CustomCircuitBuilder" Collapsed="true">
+    <Position X="8" Y="12.75" Width="1.75" />
+    <Members>
+      <Field Name="ClickActions" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Field Name="CurrentVal" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="groupBox1" Hidden="true" />
+      <Field Name="HelpButton" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label2" Hidden="true" />
+      <Field Name="panel1" Hidden="true" />
+      <Field Name="RecalculateValues" Hidden="true" />
+      <Field Name="Reset" Hidden="true" />
+      <Field Name="ReturnButton" Hidden="true" />
+      <Field Name="VoltageDisplay" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EABAAICAADAADBAAAECCAGEGIIAAIAAAAGgAhRAIEAA=</HashCode>
+      <FileName>CustomCircuitBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.ContentsPage">
+    <Position X="9.25" Y="8.25" Width="2.25" />
+    <Members>
+      <Field Name="components" Hidden="true" />
+      <Field Name="CreditsButton" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="GoToStudent" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="Settings" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAACAYAAAAAADAAAACQAAAAAgAgAAAAAAAAAA=</HashCode>
+      <FileName>ContentsPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.Help_Form" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAAAAAAACAAIACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Help Form.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.LearningModules" Collapsed="true">
+    <Position X="13.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAeQAAABAAgCACAACQACAAQAAIAACAAABBAA=</HashCode>
+      <FileName>LearningModules.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.OhmsLaw" Collapsed="true">
+    <Position X="4.75" Y="12.75" Width="1.25" />
+    <Members>
+      <Field Name="BackButton" Hidden="true" />
+      <Field Name="ClearGraph" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Field Name="CurrentLabel" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="GraphPlot" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label2" Hidden="true" />
+      <Field Name="label3" Hidden="true" />
+      <Field Name="OhmsChart" Hidden="true" />
+      <Field Name="panel1" Hidden="true" />
+      <Field Name="ResistanceLabel" Hidden="true" />
+      <Field Name="ResistanceSlider" Hidden="true" />
+      <Field Name="VoltageLabel" Hidden="true" />
+      <Field Name="VoltageSlider" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EEIAAAIACCkAABAQgACBAABGQBAAAIAAAAAAASAIAgA=</HashCode>
+      <FileName>OhmsLaw.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.Power" Collapsed="true">
+    <Position X="6.25" Y="12.75" Width="1.25" />
+    <Members>
+      <Field Name="button1" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="GraphTypeControl" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label2" Hidden="true" />
+      <Field Name="label3" Hidden="true" />
+      <Field Name="panel1" Hidden="true" />
+      <Field Name="PlotGraphPoint" Hidden="true" />
+      <Field Name="PowerLabel" Hidden="true" />
+      <Field Name="PowerLawDigram" Hidden="true" />
+      <Field Name="PowerToggle" Hidden="true" />
+      <Field Name="ReturnButton" Hidden="true" />
+      <Field Name="VariableEMF" Hidden="true" />
+      <Field Name="VariableResistance" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EDBEgAIKADAAABAAEAjAAAICAACIADgAAASAAQQIAAE=</HashCode>
+      <FileName>Power.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.SettingsForm">
+    <Position X="9.75" Y="14.5" Width="3.75" />
+    <Members>
+      <Field Name="ApplySettingsButton" Hidden="true" />
+      <Field Name="ColourTextBox" Hidden="true" />
+      <Field Name="ColourThemeInfo" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="EMFInfo" Hidden="true" />
+      <Field Name="Exit" Hidden="true" />
+      <Field Name="HelpButton" Hidden="true" />
+      <Field Name="InitalEMFTextBox" Hidden="true" />
+      <Field Name="InitalResistanceVal" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="InitResistanceValInfo" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label2" Hidden="true" />
+      <Field Name="label3" Hidden="true" />
+      <Field Name="label4" Hidden="true" />
+      <Field Name="label5" Hidden="true" />
+      <Field Name="label6" Hidden="true" />
+      <Field Name="label7" Hidden="true" />
+      <Field Name="label8" Hidden="true" />
+      <Field Name="label9" Hidden="true" />
+      <Field Name="LoadSettingsFile" Hidden="true" />
+      <Field Name="MaxValinfo" Hidden="true" />
+      <Field Name="MaxValTextBox" Hidden="true" />
+      <Field Name="MinValinfo" Hidden="true" />
+      <Field Name="MinValTextBox" Hidden="true" />
+      <Field Name="ReturnButton" Hidden="true" />
+      <Field Name="SaveFileButton" Hidden="true" />
+      <Field Name="StepInfo" Hidden="true" />
+      <Field Name="StepValTextBox" Hidden="true" />
+      <Field Name="SystemInfo" Hidden="true" />
+      <Field Name="SystemWideUnits" Hidden="true" />
+      <Field Name="Title" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>FADBIiAAACMAo1AAIDDEEQECQAECABEAIAgBhACgAgE=</HashCode>
+      <FileName>SettingsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.SettingsVariables">
+    <Position X="0.5" Y="16.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAEAAAAgAAABAAAAAAAAIAgAA=</HashCode>
+      <FileName>SettingsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.StudentPage" Collapsed="true">
+    <Position X="13.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAKAAAAAAABCAAAACQACAAAAAIQAAEABAAAA=</HashCode>
+      <FileName>StudentPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.InputForm">
+    <Position X="13.5" Y="3.75" Width="2.25" />
+    <Members>
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="InputBox" Hidden="true" />
+      <Method Name="InputForm" Hidden="true" />
+      <Field Name="InstructionLabel" Hidden="true" />
+      <Field Name="UnitListBox" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACQAAAAGAAAAACAACAAAACAAAAAAAEAAEQAACAAAA=</HashCode>
+      <FileName>UserInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI_for_Project.Slide_Potentiometer">
+    <Position X="3.75" Y="18.25" Width="3" />
+    <Members>
+      <Field Name="BackButton" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="ExitButton" Hidden="true" />
+      <Field Name="HelpButton" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="label2" Hidden="true" />
+      <Field Name="label3" Hidden="true" />
+      <Field Name="label5" Hidden="true" />
+      <Field Name="pictureBox1" Hidden="true" />
+      <Field Name="PotenitometerSlide" Hidden="true" />
+      <Field Name="PotentiometerArm" Hidden="true" />
+      <Field Name="R1Value" Hidden="true" />
+      <Field Name="R2Value" Hidden="true" />
+      <Method Name="Slide_Potentiometer" Hidden="true" />
+      <Field Name="VoltageLabel" Hidden="true" />
+      <Field Name="VoutLabel" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gAAAEAQAACAgABAAggiRAAEGAIAAEAAEAAggBCBAAAA=</HashCode>
+      <FileName>Slide Potentiometer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

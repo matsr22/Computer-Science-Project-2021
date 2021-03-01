@@ -16,7 +16,6 @@ namespace GUI_for_Project
         {
             InitializeComponent();
         }
-
         private void Settings_Click(object sender, EventArgs e)
         {
             Hide();
@@ -25,9 +24,6 @@ namespace GUI_for_Project
             Close();
 
         }
-
-
-
         private void GoToStudent_Click(object sender, EventArgs e)
         {
             this.Hide();

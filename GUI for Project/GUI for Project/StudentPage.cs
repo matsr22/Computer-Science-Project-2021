@@ -38,11 +38,6 @@ namespace GUI_for_Project
             this.Close();
         }
 
-        private void OpenFile_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void CustomBuilder_Click(object sender, EventArgs e)
         {
             Hide();
