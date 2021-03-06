@@ -56,7 +56,12 @@ namespace GUI_for_Project
                 {
 
                     case ("Edit Values"):
+
                         double value = GetUserInputAsDouble($"What would you like to change the value of {SenderPicture.AssosiatedComponent.GetName()} to ?", 'Ω');
+                        if(value == 0)
+                        {
+                            break;
+                        }
                         SenderPicture.AssosiatedComponent.AssignResistance(value);
                         Label InternalLabel = ((Label)SenderPicture.Controls[0]);// Now Updates the Label to reflect the new value
                         InternalLabel.Text = PrefixDouble(value, 'Ω');
@@ -65,12 +70,30 @@ namespace GUI_for_Project
 
 
                     case "Add Resistor In Parrallel":
+                        if (MainCircuit.Main.ysize >= 12||MainCircuit.Main.xsize >=12)
+                        {
+                            MessageBox.Show("The Circuit has hit maximum size");
+                            break;
+                        }
                         double NewResistanceValue = GetUserInputAsDouble("What is the resistance of the new resistor", 'Ω');
+                        if (NewResistanceValue == 0)
+                        {
+                            break;
+                        }
                         MainCircuit.Main.ComponentSearch(SenderPicture.AssosiatedComponent.GetName(), "Insert", new string[] { NewResistanceValue.ToString(), "p" });
                         RefreshDiagram();
                         break;
                     case "Add Resistor In Series":
+                        if(MainCircuit.Main.ysize >= 12||MainCircuit.Main.xsize>=12)
+                        {
+                            MessageBox.Show("The Circuit has hit maximum size");
+                            break;
+                        }
                         double NewResistanceValue2 = GetUserInputAsDouble("What is the resistance of the new resistor", 'Ω');
+                        if (NewResistanceValue2 == 0)
+                        {
+                            break;
+                        }
                         MainCircuit.Main.ComponentSearch(SenderPicture.AssosiatedComponent.GetName(), "Insert", new string[] { NewResistanceValue2.ToString(), "s" });
                         RefreshDiagram();
                         break;

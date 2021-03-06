@@ -51,7 +51,7 @@ namespace GUI_for_Project
         }
         public virtual void DrawEMFSource(double EMFVal)
         {
-            ModifyPicture(Resources.Cell, MiddleCollumn, 0, PrefixDouble(EMFVal, MainCircuit.GetTypeOfPsource()));//Adds a Cell in the centre of the image
+            ModifyPicture(Resources.Cell, MiddleCollumn, 0, PrefixDouble(EMFVal, Char.ToUpper(MainCircuit.GetTypeOfPsource())));//Adds a Cell in the centre of the image
         }
         public void ImageResizer(object sender, EventArgs e) // Resizes the text under a component so it is consistant (Dosn't really work as intended)
         {
@@ -274,24 +274,26 @@ namespace GUI_for_Project
             try
             {
                 double inputAsdouble = Convert.ToDouble(input);
-                switch (prefix[0])
+                string characterpref = prefix[0].ToString();
+                switch (characterpref)
                 {
-                    case 'n':
+                    case "n":
                         inputAsdouble *= Math.Pow(10, -9);
                         break;
-                    case 'μ':
+                    case "µ":
+       
                         inputAsdouble *= Math.Pow(10, -6);
                         break;
-                    case 'm':
+                    case "m":
                         inputAsdouble *= Math.Pow(10, -3);
                         break;
-                    case 'k':
+                    case "k":
                         inputAsdouble *= Math.Pow(10, 3);
                         break;
-                    case 'M':
+                    case "M":
                         inputAsdouble *= Math.Pow(10, 6);
                         break;
-                    case 'G':
+                    case "G":
                         inputAsdouble *= Math.Pow(10, 9);
                         break;
                     default:

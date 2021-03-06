@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using Physics_Engine;
 
 namespace GUI_for_Project
@@ -105,7 +106,11 @@ namespace GUI_for_Project
         }
         public void ClearGraph()
         {
-            PowerLawDigram.Series[0].Points.Clear();
+            foreach (Series series in PowerLawDigram.Series)
+            {
+                series.Points.Clear();
+            }
+
         }
         public void RefreshAxisTitle()
         {
@@ -141,6 +146,13 @@ namespace GUI_for_Project
             LearningModules modules = new LearningModules();
             modules.ShowDialog();
             Close();
+
+            
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            ClearGraph();
         }
     }
 }

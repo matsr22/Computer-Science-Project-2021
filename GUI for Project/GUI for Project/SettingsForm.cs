@@ -29,6 +29,7 @@ namespace GUI_for_Project
             InitalEMFTextBox.Text = SettingsVariables.EMFDefaultValue.ToString();
             InitalResistanceVal.Text = SettingsVariables.ResistanceDefaultValue.ToString();
             ColourTextBox.Text = ColorTranslator.ToHtml(SettingsVariables.ControlBackgroundColour);
+            SystemWideUnits.SelectedIndex = 0;
         }
         private void MaxValinfo_Click(object sender, EventArgs e)
         {
@@ -67,6 +68,7 @@ namespace GUI_for_Project
 
         private void ApplySettingsButton_Click(object sender, EventArgs e)
         {
+            
             try
             {
                 SettingsVariables.SliderMaxValue = Convert.ToInt32(MaxValTextBox.Text);
@@ -74,12 +76,21 @@ namespace GUI_for_Project
                 SettingsVariables.SliderStepValue = Convert.ToInt32(StepValTextBox.Text);
                 SettingsVariables.EMFDefaultValue = Convert.ToDouble(InitalEMFTextBox.Text);
                 SettingsVariables.ResistanceDefaultValue = Convert.ToDouble(InitalResistanceVal.Text);
-                SettingsVariables.ControlBackgroundColour = ColorTranslator.FromHtml(ColourTextBox.Text);
+                if (ColourTextBox.Text.Length == 7 && ColourTextBox.Text[0] == '#')
+                {
+                    SettingsVariables.ControlBackgroundColour = ColorTranslator.FromHtml(ColourTextBox.Text);
+                }
+                else
+                {
+                    throw new Exception();
+                }
+                MessageBox.Show("Success!!");
             }
             catch (Exception)
             {
                 MessageBox.Show("Input was in incorrect format");
             }
+            
         }
 
         private void ReturnButton_Click(object sender, EventArgs e)
@@ -98,7 +109,7 @@ namespace GUI_for_Project
         {
             SaveFileDialog SaveFilePopUp = new SaveFileDialog
             {
-                InitialDirectory = @"C:\",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments),
                 DefaultExt = "elset",
                 FileName = "*.elset",
                 Filter = "elset files (*.elset)|*.elset"
@@ -121,7 +132,7 @@ namespace GUI_for_Project
 
             OpenFileDialog OpenFilePopUp = new OpenFileDialog 
             {
-                InitialDirectory = @"C:\",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments),
                 DefaultExt = "elset",
                 FileName = "*.elset",
                 Filter = "elset files (*.elset)|*.elset"
@@ -152,7 +163,7 @@ namespace GUI_for_Project
             string Line3 = SettingsVariables.SliderStepValue.ToString();
             string Line4 = SettingsVariables.EMFDefaultValue.ToString();
             string Line5 = SettingsVariables.ResistanceDefaultValue.ToString();
-            string Line6 = SettingsVariables.ControlBackgroundColour.ToString();
+            string Line6 = ColorTranslator.ToHtml(SettingsVariables.ControlBackgroundColour).ToString();
             return Line1 + "\n" + Line2 + "\n" + Line3 + "\n" + Line4 + "\n" + Line5 + "\n" + Line6;
         }
         public void LoadSettingsFromListT(List<string> ToBeLoaded)
